@@ -65,7 +65,7 @@ public class UserDao {
         PreparedStatement stm = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
         stm.setString(1, user.getEmail());
         stm.setString(2, user.getName());
-        stm.setString(3,"Password");
+        stm.setString(3, user.getPassword());
         stm.setString(4, String.valueOf(user.getRole()));
         stm.executeUpdate();
         ResultSet generatedKeys = stm.getGeneratedKeys();
