@@ -2,12 +2,16 @@ package shift_manager_pro;
 
 import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.auth.LoginController;
-import shift_manager_pro.controllers.home.HomeController;
+import shift_manager_pro.controllers.HomeController;
+import shift_manager_pro.controllers.users.CreateAccountController;
+import shift_manager_pro.models.Role;
 import shift_manager_pro.utils.Views;
 import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
 import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
+
+import static io.javalin.core.security.SecurityUtil.roles;
 
 public class App {
 
@@ -44,6 +48,8 @@ public class App {
             AccessManager.logout(ctx);
             ctx.redirect("/");
         });
+
+        app.post("/users", new CreateAccountController(), roles(Role.ADMIN));//Secured for ADMINs only
 
     }
 

@@ -3,16 +3,14 @@ package shift_manager_pro.dao;
 import shift_manager_pro.models.Role;
 import shift_manager_pro.models.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDao {
 
     private static final String SELECT_PWD_BY_EMAIL = "SELECT password FROM users WHERE email = ?" ;
     private static final String SELECT_BY_EMAIL = "SELECT email, name, role, id FROM users WHERE email = ?" ;
     private static final String SELECT_BY_ID = "SELECT email, name, role, id FROM users WHERE id = ?";
+    private static final String INSERT = "INSERT INTO users(email, name, password, role) VALUES(?,?,?,?)";
     public static UserDao INSTANCE = new UserDao();
 
     private UserDao(){}
@@ -61,5 +59,23 @@ public class UserDao {
         }
         connection.close();
         throw new SQLException("No User with id = " + id);
+    }
+    public User create(User user) throws SQLException {
+        Connection connection = DBUtils.getConnection();
+        PreparedStatement stm = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+        stm.setString(1, user.getEmail());
+        stm.setString(2, user.getName());
+        stm.setString(3,"Password");
+        stm.setString(4, String.valueOf(user.getRole()));
+        stm.executeUpdate();
+        ResultSet generatedKeys = stm.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            user.setId(generatedKeys.getLong(1));
+        } else {
+            connection.close();
+            throw new SQLException("Creating user failed, no ID obtained.");
+        }
+        connection.close();
+        return user;
     }
 }
