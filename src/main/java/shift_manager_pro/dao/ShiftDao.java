@@ -50,11 +50,11 @@ public class ShiftDao {
         Connection connection = DBUtils.getConnection();
         PreparedStatement stm = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
         stm.setLong(1, shift.getLocation_id());
-        stm.setLong(2, shift.getEmp_id());
+        stm.setLong(2, shift.getUser_id());
         stm.setString(3, shift.getStartTime().toString());
         stm.setString(4, shift.getEndTime().toString());
         stm.setInt(5, shift.getDuration());
-        stm.setString(6, shift.getDescription());
+        stm.setString(6, shift.getInfo());
         stm.executeUpdate();
         ResultSet generatedKeys = stm.getGeneratedKeys();
         if (generatedKeys.next()) {
@@ -76,7 +76,7 @@ public class ShiftDao {
         shift.setStartTime(LocalDateTime.parse(rs.getString(4), formatter));
         shift.setEndTime(LocalDateTime.parse(rs.getString(5), formatter));
         shift.setDuration(rs.getInt(6));
-        shift.setDescription(rs.getString(7));
+        shift.setInfo(rs.getString(7));
         return shift;
     }
 }
