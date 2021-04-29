@@ -6,24 +6,24 @@ import java.time.LocalDateTime;
 public class Shift {
     private Long id = null;
     private Long location_id = null;
+    private Long user_id = null;
     private Long job_id = null;
-    private Long emp_id = null;
     private LocalDateTime startTime = null;
-    private int duration = 0;
     private LocalDateTime endTime = null;
-    private String description = null;
+    private int duration = 0;
+    private String info = null;
 
     public Shift() {
 
     }
 
-    public Shift(Long id, LocalDateTime startTime, LocalDateTime endTime, Long location_id, Long emp_id, int duration) {
-        this.id = id;
+    public Shift(Long location_id, Long user_id,Long job_id,LocalDateTime startTime, LocalDateTime endTime, int duration) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
-        this.emp_id = emp_id;
+        this.user_id = user_id;
         this.location_id = location_id;
+        this.job_id = job_id;
 
     }
 
@@ -51,12 +51,12 @@ public class Shift {
         this.job_id = job_id;
     }
 
-    public Long getEmp_id() {
-        return emp_id;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setEmp_id(Long emp_id) {
-        this.emp_id = emp_id;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public LocalDateTime getStartTime() {
@@ -83,17 +83,17 @@ public class Shift {
         this.endTime = endTime;
     }
 
-    public String getDescription() {
-        return description;
+    public String getInfo() {
+        return info;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setInfo(String info){
+        this.info = info;
     }
 
     @Override
     public String toString() {
-        return "Shift [description=" + description + ", duration=" + duration + ", emp_id=" + emp_id + ", endTime="
+        return "Shift [info=" + info + ", duration=" + duration + ", user_id=" + user_id + ", endTime="
                 + endTime + ", id=" + id + ", job_id=" + job_id + ", location_id=" + location_id + ", startTime="
                 + startTime + "]";
     }

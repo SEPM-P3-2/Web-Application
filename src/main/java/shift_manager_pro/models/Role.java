@@ -5,3 +5,4 @@ public enum Role implements io.javalin.core.security.Role {
     REGISTERED,
     ANONYMOUS
 }
+    
