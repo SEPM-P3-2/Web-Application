@@ -1,4 +1,4 @@
-package shift_manager_pro.controllers.home;
+package shift_manager_pro.controllers;
 
 import shift_manager_pro.utils.Views;
 import io.javalin.http.Context;
