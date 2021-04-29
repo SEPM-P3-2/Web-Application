@@ -2,11 +2,13 @@ package shift_manager_pro.models;
 
 import io.javalin.core.security.Role;
 
+
 public class User {
     private Long id = null;
     private String email = null;
     private String name = null;
     private Role role = null;
+    private String password;
 
     public User(){
 
@@ -48,6 +50,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
