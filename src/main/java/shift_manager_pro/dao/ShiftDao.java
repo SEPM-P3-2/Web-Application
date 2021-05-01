@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ShiftDao {
-    private static final String SELECT_BY_EMP_ID = "SELECT id, location_id, emp_id, startTime, endTime, duration, description FROM shifts WHERE emp_id = ?" ;
-    private static final String SELECT_BY_ID = "SELECT id, location_id, emp_id, startTime, endTime, duration, description FROM shifts WHERE id = ?";
-    private static final String INSERT = "INSERT INTO shifts(location_id, emp_id, startTime, endTime, duration, description) VALUES(?,?,?,?,?,?)";
+    private static final String SELECT_BY_USER_ID = "SELECT id, location_id, user_id, startTime, endTime, duration, description FROM shifts WHERE user_id = ?" ;
+    private static final String SELECT_BY_ID = "SELECT id, location_id, user_id, startTime, endTime, duration, description FROM shifts WHERE id = ?";
+    private static final String INSERT = "INSERT INTO shifts(location_id, user_id, startTime, endTime, duration, description) VALUES(?,?,?,?,?,?)";
 
     public static ShiftDao INSTANCE = new ShiftDao();
 
@@ -33,17 +33,17 @@ public class ShiftDao {
     }
 
 
-    public Shift getByEmpId(long emp_id) throws SQLException {
+    public Shift getByUserId(long user_id) throws SQLException {
         Connection connection = DBUtils.getConnection();
-        PreparedStatement stm = connection.prepareStatement(SELECT_BY_EMP_ID);
-        stm.setLong(1, emp_id);
+        PreparedStatement stm = connection.prepareStatement(SELECT_BY_USER_ID);
+        stm.setLong(1, user_id);
         ResultSet rs = stm.executeQuery();
         if (rs.next()) {
             Shift s = mapShift(rs);
             return s;
         }
         connection.close();
-        throw new SQLException("No Shift with emp_id = " + emp_id);
+        throw new SQLException("No Shift with user_id = " + user_id);
     }
 
     public Shift create(Shift shift) throws SQLException {
@@ -68,7 +68,7 @@ public class ShiftDao {
     }
 
     private Shift mapShift(ResultSet rs) throws SQLException {
-        // location_id, job_id, emp_id, startTime, endTime, duration, description
+        // location_id, job_id, user_id, startTime, endTime, duration, description
         Shift shift = new Shift();
         shift.setId(rs.getLong(1));
         shift.setLocation_id(rs.getLong(2));

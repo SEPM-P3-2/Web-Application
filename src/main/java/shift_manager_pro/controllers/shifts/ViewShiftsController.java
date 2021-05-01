@@ -22,7 +22,7 @@ public class ViewShiftsController implements Handler {
 
         Map<String, Object> model = Views.baseModel(ctx);
         model.put("user", UserDao.INSTANCE.get(AccessManager.getSessionCurrentUser(ctx).getId()));
-        model.put("shifts", ShiftDao.INSTANCE.getByEmpId(AccessManager.getSessionCurrentUser(ctx).getId()));
+        model.put("shifts", ShiftDao.INSTANCE.getByUserId(AccessManager.getSessionCurrentUser(ctx).getId()));
         ctx.render(PATH, model);
     }
 }

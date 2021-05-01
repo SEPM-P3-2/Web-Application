@@ -1,11 +1,11 @@
-package shift_manager_pro.controllers.home;
+package shift_manager_pro.controllers.shifts;
 
 import shift_manager_pro.utils.Views;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LocalDateTime;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class ShiftAllocateController implements Handler {
