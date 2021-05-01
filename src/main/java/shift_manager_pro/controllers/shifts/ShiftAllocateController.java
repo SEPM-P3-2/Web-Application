@@ -10,9 +10,7 @@ import java.util.Map;
 
 public class ShiftAllocateController implements Handler {
 
-    public static final String URL = "/";
-
-    static final String TEMPLATE = Views.templatePath("home/index.html");
+    static final String PATH = Views.templatePath("shift/allocate.html");
 
     @Override
     public void handle(@NotNull Context context) throws Exception {
@@ -24,7 +22,7 @@ public class ShiftAllocateController implements Handler {
         
 
         Map<String, Object> model = Views.baseModel(context);
-        context.render(TEMPLATE, model);
+        context.render(PATH, model);
     }
 
 

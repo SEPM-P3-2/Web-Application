@@ -18,7 +18,7 @@
 
 <!-- Begin THIS page content -->
 <main role="main" class="container ">
-    <h1>Shifts for <span th:text="${user.id}"></span></h1>
+    <h1>Shifts</h1>
     <br>
 
     <div class="shifts-list">
@@ -28,14 +28,14 @@
             <th>Start Time</th>
             <th>End Time</th>
             <th>Duration</th>
-            <th>Description</th>
+            <th>Info</th>
             <tr th:each="shift : ${shifts}">
                 <td th:text="${shift.id}"></td>
                 <td th:text="${shift.location_id}"></td>
                 <td th:text="${shift.startTime}"></td>
                 <td th:text="${shift.endTime}"></td>
                 <td><span th:text="${shift.duration}"></span> hours</td>
-                <td th:text="${shift.description}"></td>
+                <td th:text="${shift.info}"></td>
             </tr>
         </table>
     </div>
