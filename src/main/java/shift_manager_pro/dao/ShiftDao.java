@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ShiftDao {
-    private static final String SELECT_BY_USER_ID = "SELECT id, location_id, user_id, startTime, endTime, duration, description FROM shifts WHERE user_id = ?" ;
-    private static final String SELECT_BY_ID = "SELECT id, location_id, user_id, startTime, endTime, duration, description FROM shifts WHERE id = ?";
-    private static final String INSERT = "INSERT INTO shifts(location_id, user_id, startTime, endTime, duration, description) VALUES(?,?,?,?,?,?)";
+    private static final String SELECT_BY_USER_ID = "SELECT id, location_id, user_id, startTime, endTime, duration, info FROM shifts WHERE user_id = ?" ;
+    private static final String SELECT_BY_ID = "SELECT id, location_id, user_id, startTime, endTime, duration, info FROM shifts WHERE id = ?";
+    private static final String INSERT = "INSERT INTO shifts(location_id, user_id, startTime, endTime, duration, info) VALUES(?,?,?,?,?,?)";
 
     public static ShiftDao INSTANCE = new ShiftDao();
 
