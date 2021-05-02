@@ -1,6 +1,7 @@
 package shift_manager_pro.models;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Shift {
@@ -12,6 +13,8 @@ public class Shift {
     private LocalDateTime endTime = null;
     private int duration = 0;
     private String info = null;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 
     public Shift() {
 
