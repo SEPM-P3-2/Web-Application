@@ -12,13 +12,13 @@ import shift_manager_pro.models.User;
 public class ShiftDao {
 
   private static final String SELECT_BY_USER_ID =
-    "SELECT id, location_id, user_id, startTime, endTime, duration, info FROM shifts WHERE user_id = ?";
+    "SELECT * FROM shifts WHERE user_id = ?";
   private static final String SELECT_BY_ID =
-    "SELECT id, location_id, user_id, startTime, endTime, duration, info FROM shifts WHERE id = ?";
+    "SELECT * FROM shifts WHERE id = ?";
   private static final String INSERT =
-    "INSERT INTO shifts(location_id, user_id, startTime, endTime, duration, info) VALUES(?,?,?,?,?,?)";
+    "INSERT INTO shifts(location_id, job_id, user_id, startTime, endTime, duration, info) VALUES(?,?,?,?,?,?)";
   private static final String SELECT_FROM_NOW =
-    "SELECT id, location_id, user_id, startTime, endTime, duration, info FROM shifts WHERE startTime >= CURRENT_TIMESTAMP";
+    "SELECT * FROM shifts WHERE startTime >= CURRENT_TIMESTAMP";
 
   public static ShiftDao INSTANCE = new ShiftDao();
 
@@ -46,27 +46,23 @@ public class ShiftDao {
     PreparedStatement stm = connection.prepareStatement(SELECT_FROM_NOW);
     ResultSet rs = stm.executeQuery();
     List<Shift> shifts = new ArrayList<>();
-    if (rs.next()) {
-      while (rs.next()) {
-        shifts.add(mapShift(rs));
-      }
-      return shifts;
+    while (rs.next()) {
+      shifts.add(mapShift(rs));
     }
-    connection.close();
-    throw new SQLException("No Shift found");
+    return shifts;
   }
 
-  public Shift getByUserId(long user_id) throws SQLException {
+  public List<Shift> getByUserId(long user_id) throws SQLException {
     Connection connection = DBUtils.getConnection();
     PreparedStatement stm = connection.prepareStatement(SELECT_BY_USER_ID);
     stm.setLong(1, user_id);
     ResultSet rs = stm.executeQuery();
-    if (rs.next()) {
-      Shift s = mapShift(rs);
-      return s;
+    List<Shift> shifts = new ArrayList<Shift>();
+
+    while (rs.next()) {
+      shifts.add(mapShift(rs));
     }
-    connection.close();
-    throw new SQLException("No Shift with user_id = " + user_id);
+    return shifts;
   }
 
   public Shift create(Shift shift) throws SQLException {
@@ -98,11 +94,12 @@ public class ShiftDao {
     Shift shift = new Shift();
     shift.setId(rs.getLong(1));
     shift.setLocation_id(rs.getLong(2));
-    shift.setJob_id(rs.getLong(3));
-    shift.setStartTime(LocalDateTime.parse(rs.getString(4), formatter));
-    shift.setEndTime(LocalDateTime.parse(rs.getString(5), formatter));
-    shift.setDuration(rs.getInt(6));
-    shift.setInfo(rs.getString(7));
+    shift.setJob_id(rs.getLong(4));
+    shift.setUser_id(rs.getLong(3));
+    shift.setStartTime(LocalDateTime.parse(rs.getString(5), formatter));
+    shift.setEndTime(LocalDateTime.parse(rs.getString(6), formatter));
+    shift.setDuration(rs.getInt(7));
+    shift.setInfo(rs.getString(8));
     return shift;
   }
 }

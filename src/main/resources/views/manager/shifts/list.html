@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <!-- Common head content is included from common.html  -->
     <th:block th:include="/views/fragments/common.html :: commonhead"></th:block>
@@ -13,40 +14,45 @@
 
 <body>
 
-<!-- Nav bar is located in common.html -->
-<header th:replace="/views/fragments/common.html :: header"></header>
+    <!-- Nav bar is located in common.html -->
+    <header th:replace="/views/fragments/common.html :: header"></header>
 
-<!-- Begin THIS page content -->
-<main role="main" class="container ">
-    <h1>Shifts</h1>
-    <br>
+    <!-- Begin THIS page content -->
+    <main role="main" class="container ">
+        <h1>Shifts</h1>
+        <br>
 
-    <div class="shifts-list">
-        <table class="table">
-            <th>ID</th>
-            <th>Location</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Duration</th>
-            <th>Info</th>
-            <tr th:each="shift : ${shifts}">
-                <td th:text="${shift.id}"></td>
-                <td th:text="${shift.location_id}"></td>
-                <td th:text="${shift.startTime}"></td>
-                <td th:text="${shift.endTime}"></td>
-                <td><span th:text="${shift.duration}"></span> hours</td>
-                <td th:text="${shift.info}"></td>
-            </tr>
-        </table>
-    </div>
-</main>
-<!-- End THIS page content -->
+        <div class="shifts-list">
+            <table class="table">
+                <th>Employee</th>
+                <th>Location</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Duration</th>
+                <th>Info</th>
+                <tr th:each="shift : ${shifts}">
+                    <td>
+                        <span th:if="${shift.user_id==0}">Not Assigned</span>
+                        <span th:unless="${shift.user_id==0}"><span
+                                th:text="${users[shift.user_id].name}"></span></span>
+                    </td>
+                    <td th:text="${shift.location_id}"></td>
+                    <td th:text="${shift.startTime}"></td>
+                    <td th:text="${shift.endTime}"></td>
+                    <td><span th:text="${shift.duration}"></span> hours</td>
+                    <td th:text="${shift.info}"></td>
+                </tr>
+            </table>
+        </div>
+    </main>
+    <!-- End THIS page content -->
 
 
-<!-- Footer is located in common.html -->
-<footer class="footer" th:replace="/views/fragments/common.html :: footer"></footer>
+    <!-- Footer is located in common.html -->
+    <footer class="footer" th:replace="/views/fragments/common.html :: footer"></footer>
 
-<!-- Bootstrap Scripts  -->
-<th:block th:include="/views/fragments/common.html :: scripts"></th:block>
+    <!-- Bootstrap Scripts  -->
+    <th:block th:include="/views/fragments/common.html :: scripts"></th:block>
 </body>
+
 </html>
