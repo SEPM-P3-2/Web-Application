@@ -15,7 +15,7 @@ public class RegisterController implements Handler {
         User user = new User(
                 ctx.formParam("email"),
                 ctx.formParam("full_name"),
-                Role.EMPLOYEE
+                Role.valueOf(ctx.formParam("role"))
         );
         user.setPassword(
                 BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt())
