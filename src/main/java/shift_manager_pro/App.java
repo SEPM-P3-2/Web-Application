@@ -70,7 +70,8 @@ public class App {
                 Map<String, Object> model = Views.baseModel(ctx);
                 model.put("user", AccessManager.getSessionCurrentUser(ctx));
                 ctx.render(Views.templatePath("auth/register.html"), model);
-            }
+            },
+            roles(Role.MANAGER)
     );
 
     app.post(
