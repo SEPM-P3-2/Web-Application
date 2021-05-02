@@ -8,11 +8,13 @@ import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Map;
+
 import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.auth.LoginController;
+import shift_manager_pro.auth.RegisterController;
 import shift_manager_pro.controllers.HomeController;
 import shift_manager_pro.controllers.shifts.*;
-import shift_manager_pro.controllers.users.*;
 import shift_manager_pro.models.Role;
 import shift_manager_pro.utils.Views;
 
@@ -45,9 +47,7 @@ public class App {
     // Routing
     app.get(HomeController.URL, new HomeController());
 
-    app.get(
-      "/view_shifts",
-      new ViewShiftsController(),
+    app.get("/view_shifts", new ViewShiftsController(),
       roles(Role.EMPLOYEE, Role.MANAGER)
     ); // only registered users may view shifts
     app.get(
@@ -55,12 +55,27 @@ public class App {
       new ViewAllShiftsController(),
       roles(Role.MANAGER)
     ); // only registered users may view shifts
+
     //Auth
     app.get(
       "/login",
       ctx -> {
         ctx.render("/views/auth/login.html", Views.baseModel(ctx));
       }
+    );
+
+    app.get(
+            "/register",
+            ctx -> {
+                Map<String, Object> model = Views.baseModel(ctx);
+                model.put("user", AccessManager.getSessionCurrentUser(ctx));
+                ctx.render(Views.templatePath("auth/register.html"), model);
+            }
+    );
+
+    app.post(
+            "/register",
+            new RegisterController()
     );
 
     app.post("auth", new LoginController());
@@ -71,7 +86,5 @@ public class App {
         ctx.redirect("/");
       }
     );
-
-    app.post("/users", new CreateAccountController(), roles(Role.MANAGER)); //Secured for ADMINs only
   }
 }

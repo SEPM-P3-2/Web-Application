@@ -18,7 +18,7 @@ public class LoginController implements Handler {
             User user = UserDao.INSTANCE.getByEmail(email);
             AccessManager.loginUser(ctx,user);
             ctx.redirect("/");
-        }else {
+        } else {
             ctx.result("Login Failed");
         }
 
