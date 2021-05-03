@@ -55,7 +55,12 @@ public class App {
       new ViewAllShiftsController(),
       roles(Role.MANAGER)
     ); // only registered users may view shifts
-
+    app.get(
+      "/shift_preferences",
+      ctx -> {
+        ctx.render("/views/employee//shifts/calendar.html", Views.baseModel(ctx));
+      }
+    );
     //Auth
     app.get(
       "/login",
