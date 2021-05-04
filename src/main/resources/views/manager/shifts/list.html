@@ -32,7 +32,18 @@
                 <th>Info</th>
                 <tr th:each="shift : ${shifts}">
                     <td>
-                        <span th:if="${shift.user_id==0}">Not Assigned</span>
+                        <span th:if="${shift.user_id==0}">
+                            <form>
+
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                  Not Assigned
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" th:each="user : ${users}" type="submit" th:text="${user.name}"></a>
+                                </div>
+                              </div>
+                        </span>
                         <span th:unless="${shift.user_id==0}"><span
                                 th:text="${users[shift.user_id].name}"></span></span>
                     </td>

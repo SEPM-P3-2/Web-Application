@@ -72,14 +72,10 @@ public class UserDao {
     Statement stm = connection.createStatement();
     ResultSet rs = stm.executeQuery(SELECT_ALL);
     List<User> users = new ArrayList<>();
-    if (rs.next()) {
-      while (rs.next()) {
-        users.add(mapUser(rs));
-      }
-      return users;
+    while (rs.next()) {
+      users.add(mapUser(rs));
     }
-    connection.close();
-    throw new SQLException("No user found");
+    return users;
   }
 
   public User create(User user) throws SQLException {
