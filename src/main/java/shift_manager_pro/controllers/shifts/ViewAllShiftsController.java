@@ -15,10 +15,10 @@ public class ViewAllShiftsController implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
 
-
         Map<String, Object> model = Views.baseModel(ctx);
         model.put("shifts", ShiftDao.INSTANCE.getFromNow());
         model.put("users", UserDao.INSTANCE.getAll());
+        model.put("locations", LocationDao.INSTANCE.getAll());
         ctx.render(PATH, model);
     }
 }

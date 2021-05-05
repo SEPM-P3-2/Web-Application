@@ -8,7 +8,6 @@ public class Shift {
     private Long id = null;
     private Long location_id = null;
     private Long user_id = null;
-    private Long job_id = null;
     private LocalDateTime startTime = null;
     private LocalDateTime endTime = null;
     private int duration = 0;
@@ -20,13 +19,12 @@ public class Shift {
 
     }
 
-    public Shift(Long location_id, Long user_id,Long job_id,LocalDateTime startTime, LocalDateTime endTime, int duration) {
+    public Shift(Long location_id, Long user_id, LocalDateTime startTime, LocalDateTime endTime, int duration) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
         this.user_id = user_id;
         this.location_id = location_id;
-        this.job_id = job_id;
 
     }
 
@@ -44,14 +42,6 @@ public class Shift {
 
     public void setLocation_id(Long location_id) {
         this.location_id = location_id;
-    }
-
-    public Long getJob_id() {
-        return job_id;
-    }
-
-    public void setJob_id(Long job_id) {
-        this.job_id = job_id;
     }
 
     public Long getUser_id() {
@@ -97,7 +87,7 @@ public class Shift {
     @Override
     public String toString() {
         return "Shift [info=" + info + ", duration=" + duration + ", user_id=" + user_id + ", endTime="
-                + endTime + ", id=" + id + ", job_id=" + job_id + ", location_id=" + location_id + ", startTime="
+                + endTime + ", id=" + id + ", location_id=" + location_id + ", startTime="
                 + startTime + "]";
     }
 }

@@ -46,12 +46,21 @@ public class App {
     // Routing
     app.get(HomeController.URL, new HomeController());
 
+    // View shifts (only for registered users)
     app.get(
       "/view_shifts",
       new ViewShiftsController(),
       roles(Role.EMPLOYEE, Role.MANAGER)
-    ); // only registered users may view shifts
-    app.get("/view_all_shifts", new ViewAllShiftsController()); // only registered users may view shifts
+    );
+    // View all shifts (only for managers)
+    app.get("/view_all_shifts", new ViewAllShiftsController(), roles(Role.MANAGER)); // only registered users may view shifts
+
+    // Allocate shifts
+    app.get(
+      "/allocate/:user_id/:shift_id",
+      new ShiftAllocateController(),
+      roles(Role.MANAGER)
+    );
 
     //Auth
     app.get(

@@ -16,9 +16,11 @@ public class ShiftDao {
   private static final String SELECT_BY_ID =
     "SELECT * FROM shifts WHERE id = ?";
   private static final String INSERT =
-    "INSERT INTO shifts(location_id, job_id, user_id, startTime, endTime, duration, info) VALUES(?,?,?,?,?,?)";
+    "INSERT INTO shifts(location_id, user_id, startTime, endTime, duration, info) VALUES(?,?,?,?,?,?)";
   private static final String SELECT_FROM_NOW =
     "SELECT * FROM shifts WHERE startTime >= CURRENT_TIMESTAMP";
+  private static final String UPDATE =
+    "UPDATE shifts SET location_id = ?, user_id = ?, startTime = ?, endTime = ?, duration = ?, info = ? WHERE id = ?";
 
   public static ShiftDao INSTANCE = new ShiftDao();
 
@@ -94,12 +96,24 @@ public class ShiftDao {
     Shift shift = new Shift();
     shift.setId(rs.getLong(1));
     shift.setLocation_id(rs.getLong(2));
-    shift.setJob_id(rs.getLong(4));
     shift.setUser_id(rs.getLong(3));
-    shift.setStartTime(LocalDateTime.parse(rs.getString(5), formatter));
-    shift.setEndTime(LocalDateTime.parse(rs.getString(6), formatter));
-    shift.setDuration(rs.getInt(7));
-    shift.setInfo(rs.getString(8));
+    shift.setStartTime(LocalDateTime.parse(rs.getString(4), formatter));
+    shift.setEndTime(LocalDateTime.parse(rs.getString(5), formatter));
+    shift.setDuration(rs.getInt(6));
+    shift.setInfo(rs.getString(7));
     return shift;
+  }
+
+  public int updateShift(Shift shift) throws SQLException {
+    Connection connection = DBUtils.getConnection();
+    PreparedStatement stm = connection.prepareStatement(UPDATE);
+    stm.setLong(1, shift.getLocation_id());
+    stm.setLong(2, shift.getUser_id());
+    stm.setString(3, String.valueOf(shift.getStartTime()));
+    stm.setString(4, String.valueOf(shift.getEndTime()));
+    stm.setInt(5, shift.getDuration());
+    stm.setString(6, shift.getInfo());
+    stm.setLong(7, shift.getId());
+    return stm.executeUpdate();
   }
 }

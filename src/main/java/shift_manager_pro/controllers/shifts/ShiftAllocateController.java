@@ -5,18 +5,26 @@ import io.javalin.http.Handler;
 import java.time.LocalDateTime;
 import java.util.Map;
 import org.jetbrains.annotations.NotNull;
-
-import shift_manager_pro.dao.ShiftDao;
+import shift_manager_pro.dao.*;
+import shift_manager_pro.models.*;
 import shift_manager_pro.utils.Views;
 
 public class ShiftAllocateController implements Handler {
 
-  static final String PATH = Views.templatePath("shift/allocate.html");
+  static final String PATH = Views.templatePath("manager/shifts/list.html");
 
   @Override
   public void handle(@NotNull Context context) throws Exception {
-    Map<String, Object> model = Views.baseModel(context);
-    model.put("shifts", ShiftDao.INSTANCE.getFromNow());
-    context.render(PATH, model);
+    User user = UserDao.INSTANCE.get(
+      context.pathParam("user_id", Long.class).get()
+    );
+    Shift shift = ShiftDao.INSTANCE.getById(
+      context.pathParam("shift_id", Long.class).get()
+    );
+    shift.setUser_id(user.getId());
+
+    ShiftDao.INSTANCE.updateShift(shift);
+
+    context.redirect("/view_all_shifts");
   }
 }

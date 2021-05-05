@@ -39,6 +39,7 @@ public class Views {
         User user = AccessManager.getSessionCurrentUser(ctx);
         model.put("user", user);
         model.put("user_logged_in", (user.getRole() == Role.ANONYMOUS ? false : true));
+        model.put("role", user.getRole().toString());
         return model;
     }
 }
