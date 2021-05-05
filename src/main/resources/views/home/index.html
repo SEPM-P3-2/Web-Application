@@ -26,7 +26,7 @@
         <p class="lead" th:text="${#dates.format(date, 'dd-MM-yyyy HH:mm')}"></p>
         <hr class="my-4">
     </div>
-    <div>
+    <div th:if="${role =='MANAGER'}">
         <h5>As a Manager, register a new Manager or Employee:</h5><br>
         <a class="btn btn-success" href="/register">Register Account</a>
     </div>

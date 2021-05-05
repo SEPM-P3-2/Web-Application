@@ -9,7 +9,6 @@ import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
-
 import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.auth.LoginController;
 import shift_manager_pro.auth.RegisterController;
@@ -47,14 +46,21 @@ public class App {
     // Routing
     app.get(HomeController.URL, new HomeController());
 
-    app.get("/view_shifts", new ViewShiftsController(),
-      roles(Role.EMPLOYEE, Role.MANAGER)
-    ); // only registered users may view shifts
+    // View shifts (only for registered users)
     app.get(
-      "/view_all_shifts",
-      new ViewAllShiftsController(),
+      "/view_shifts",
+      new ViewShiftsController(),
+      roles(Role.EMPLOYEE, Role.MANAGER)
+    );
+    // View all shifts (only for managers)
+    app.get("/view_all_shifts", new ViewAllShiftsController(), roles(Role.MANAGER)); // only registered users may view shifts
+
+    // Allocate shifts
+    app.get(
+      "/allocate/:user_id/:shift_id",
+      new ShiftAllocateController(),
       roles(Role.MANAGER)
-    ); // only registered users may view shifts
+    );
 
     //Auth
     app.get(
@@ -65,19 +71,16 @@ public class App {
     );
 
     app.get(
-            "/register",
-            ctx -> {
-                Map<String, Object> model = Views.baseModel(ctx);
-                model.put("user", AccessManager.getSessionCurrentUser(ctx));
-                ctx.render(Views.templatePath("auth/register.html"), model);
-            },
-            roles(Role.MANAGER)
+      "/register",
+      ctx -> {
+        Map<String, Object> model = Views.baseModel(ctx);
+        model.put("user", AccessManager.getSessionCurrentUser(ctx));
+        ctx.render(Views.templatePath("auth/register.html"), model);
+      },
+      roles(Role.MANAGER)
     );
 
-    app.post(
-            "/register",
-            new RegisterController()
-    );
+    app.post("/register", new RegisterController());
 
     app.post("auth", new LoginController());
     app.get(

@@ -11,12 +11,12 @@ public class UserDao {
   private static final String SELECT_PWD_BY_EMAIL =
     "SELECT password FROM users WHERE email = ?";
   private static final String SELECT_BY_EMAIL =
-    "SELECT email, name, role, id FROM users WHERE email = ?";
-  private static final String SELECT_BY_ID =
-    "SELECT email, name, role, id FROM users WHERE id = ?";
-  private static final String SELECT_ALL = "SELECT id, email, name FROM users";
+    "SELECT * FROM users WHERE email = ?";
+  private static final String SELECT_BY_ID = "SELECT * FROM users WHERE id = ?";
+  private static final String SELECT_ALL = "SELECT * FROM users";
+
   private static final String INSERT =
-    "INSERT INTO users(email, name, password, role) VALUES(?,?,?,?)";
+    "INSERT INTO users(email, name, job_id, password, role) VALUES(?,?,?,?,?)";
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
@@ -40,10 +40,10 @@ public class UserDao {
     ResultSet rs = stm.executeQuery();
     if (rs.next()) {
       User user = new User();
-      user.setEmail(rs.getString(1));
-      user.setName(rs.getString(2));
-      user.setRole(Role.valueOf(rs.getString(3)));
-      user.setId(rs.getLong(4));
+      user.setEmail(rs.getString(2));
+      user.setName(rs.getString(3));
+      user.setRole(Role.valueOf(rs.getString(6)));
+      user.setId(rs.getLong(1));
       return user;
     }
     connection.close();
@@ -56,11 +56,7 @@ public class UserDao {
     stm.setLong(1, id);
     ResultSet rs = stm.executeQuery();
     if (rs.next()) {
-      User user = new User();
-      user.setEmail(rs.getString(1));
-      user.setName(rs.getString(2));
-      user.setRole(Role.valueOf(rs.getString(3)));
-      user.setId(rs.getLong(4));
+      User user = mapUser(rs);
       return user;
     }
     connection.close();
@@ -72,14 +68,10 @@ public class UserDao {
     Statement stm = connection.createStatement();
     ResultSet rs = stm.executeQuery(SELECT_ALL);
     List<User> users = new ArrayList<>();
-    if (rs.next()) {
-      while (rs.next()) {
-        users.add(mapUser(rs));
-      }
-      return users;
+    while (rs.next()) {
+      users.add(mapUser(rs));
     }
-    connection.close();
-    throw new SQLException("No user found");
+    return users;
   }
 
   public User create(User user) throws SQLException {
@@ -90,7 +82,8 @@ public class UserDao {
     );
     stm.setString(1, user.getEmail());
     stm.setString(2, user.getName());
-    stm.setString(3, user.getPassword());
+    stm.setLong(3, user.getJob_id());
+    stm.setString(5, user.getPassword());
     stm.setString(4, String.valueOf(user.getRole()));
     stm.executeUpdate();
     ResultSet generatedKeys = stm.getGeneratedKeys();
@@ -106,6 +99,7 @@ public class UserDao {
 
   private User mapUser(ResultSet rs) throws SQLException {
     User user = new User();
+    user.setJob_id(rs.getLong(4));
     user.setName(rs.getString(3));
     user.setEmail(rs.getString(2));
     user.setId(rs.getLong(1));

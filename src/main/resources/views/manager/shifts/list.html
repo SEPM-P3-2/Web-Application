@@ -32,11 +32,25 @@
                 <th>Info</th>
                 <tr th:each="shift : ${shifts}">
                     <td>
-                        <span th:if="${shift.user_id==0}">Not Assigned</span>
+                        <span th:if="${shift.user_id==0}">
+                            <form>
+
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-warning dropdown-toggle"
+                                        data-toggle="dropdown">
+                                        Not Assigned
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" th:each="user : ${users}"
+                                            th:href="@{/allocate/{user_id}/{shift_id}(shift_id=${shift.id}, user_id=${user.id})}"
+                                            th:text="${user.name}"></a>
+                                    </div>
+                                </div>
+                        </span>
                         <span th:unless="${shift.user_id==0}"><span
-                                th:text="${users[shift.user_id].name}"></span></span>
+                                th:text="${users[shift.user_id-1].name}"></span></span>
                     </td>
-                    <td th:text="${shift.location_id}"></td>
+                    <td th:text="${locations[shift.location_id-1]}"></td>
                     <td th:text="${shift.startTime}"></td>
                     <td th:text="${shift.endTime}"></td>
                     <td><span th:text="${shift.duration}"></span> hours</td>
