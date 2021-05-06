@@ -23,15 +23,13 @@
 
     <div class="shifts-list">
         <table class="table">
-            <th>ID</th>
             <th>Location</th>
             <th>Start Time</th>
             <th>End Time</th>
             <th>Duration</th>
             <th>Info</th>
             <tr th:each="shift : ${shifts}">
-                <td th:text="${shift.id}"></td>
-                <td th:text="${shift.location_id}"></td>
+                <td th:text="${locations[shift.location_id-1]}"></td>
                 <td th:text="${shift.startTime}"></td>
                 <td th:text="${shift.endTime}"></td>
                 <td><span th:text="${shift.duration}"></span> hours</td>

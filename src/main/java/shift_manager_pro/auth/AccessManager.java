@@ -28,7 +28,7 @@ public class AccessManager implements io.javalin.core.security.AccessManager {
         if (permittedRoles.isEmpty() || permittedRoles.contains(userRole)) {
             handler.handle(ctx);
         } else {
-            ctx.status(401).result("Unauthorized");
+            ctx.render("/views/auth/unauthorised.html");
         }
     }
 
