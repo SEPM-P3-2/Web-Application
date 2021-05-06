@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/views/fragments/common.html :: commonhead"></th:block>
+
+    <title>Availabilities</title>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header th:replace="/views/fragments/common.html :: header"></header>
+
+<main role="main" class="container ">
+    <h1 style="display: inline-block;">Availabilities for <span th:text="${user.name}"></span></h1>
+    <a style="float: right;" class="btn btn-success" href="/availabilities/new">Add Availability</a>
+    <br>
+
+    <div class="availabilities-list">
+        <table class="table">
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <tr th:each="availability : ${availabilities}">
+                <td th:text="${availability.day}"></td>
+                <td th:text="${availability.startTime}"></td>
+                <td th:text="${availability.endTime}"></td>
+            </tr>
+        </table>
+    </div>
+</main>
+
+
+<footer class="footer" th:replace="/views/fragments/common.html :: footer"></footer>
+
+<th:block th:include="/views/fragments/common.html :: scripts"></th:block>
+</body>
+</html>

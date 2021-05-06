@@ -13,6 +13,7 @@ import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.auth.LoginController;
 import shift_manager_pro.auth.RegisterController;
 import shift_manager_pro.controllers.HomeController;
+import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
 import shift_manager_pro.models.Role;
 import shift_manager_pro.utils.Views;
@@ -46,34 +47,29 @@ public class App {
     // Routing
     app.get(HomeController.URL, new HomeController());
 
+
+    app.get("/view_availabilities", new ViewAvailabilitiesController(), roles(Role.EMPLOYEE, Role.MANAGER));
+    app.get("/availabilities/new", ctx -> {
+        ctx.render("/views/employee/availabilities/new.html", Views.baseModel(ctx));
+    }, roles(Role.EMPLOYEE, Role.MANAGER));
+    //app.post("availabilities/new", new CreateAvailabilityController());
+
     // View shifts (only for registered users)
-    app.get(
-      "/view_shifts",
-      new ViewShiftsController(),
-      roles(Role.EMPLOYEE, Role.MANAGER)
-    );
+    app.get("/view_shifts", new ViewShiftsController(), roles(Role.EMPLOYEE, Role.MANAGER));
     // View all shifts (only for managers)
     app.get("/view_all_shifts", new ViewAllShiftsController(), roles(Role.MANAGER)); // only registered users may view shifts
 
     // Allocate shifts
-    app.get(
-      "/allocate/:user_id/:shift_id",
-      new ShiftAllocateController(),
-      roles(Role.MANAGER)
-    ); // only registered users may view shifts
-    app.get(
-      "/shift_preferences",
-      ctx -> {
+    app.get("/allocate/:user_id/:shift_id", new ShiftAllocateController(), roles(Role.MANAGER)); // only registered users may view shifts
+    app.get("/shift_preferences", ctx -> {
         ctx.render("/views/employee//shifts/calendar.html", Views.baseModel(ctx));
-      }
-    );
+    });
+
+
     //Auth
-    app.get(
-      "/login",
-      ctx -> {
+    app.get("/login", ctx -> {
         ctx.render("/views/auth/login.html", Views.baseModel(ctx));
-      }
-    );
+    });
 
     app.get(
       "/register",

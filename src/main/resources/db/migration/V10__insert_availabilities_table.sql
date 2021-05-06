@@ -1,0 +1,1 @@
+INSERT INTO availabilities(user_id, day, startTime, endTime) VALUES (1, 'MONDAY', '17:30:00','20:30:00');
