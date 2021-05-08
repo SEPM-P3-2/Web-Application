@@ -49,7 +49,7 @@ public class App {
     // View shifts (only for registered users)
     app.get(
       "/view_shifts",
-      new ViewShiftsController(),
+      new ShiftAcceptController(),
       roles(Role.EMPLOYEE, Role.MANAGER)
     );
     // View all shifts (only for managers)

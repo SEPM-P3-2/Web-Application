@@ -30,6 +30,7 @@
                 <th>End Time</th>
                 <th>Duration</th>
                 <th>Info</th>
+                <th>Status</th>
                 <tr th:each="shift : ${shifts}">
                     <td>
                         <span th:if="${shift.user_id==0}">
@@ -55,6 +56,7 @@
                     <td th:text="${shift.endTime}"></td>
                     <td><span th:text="${shift.duration}"></span> hours</td>
                     <td th:text="${shift.info}"></td>
+                    <td th:text="${shift.status}"></td>
                 </tr>
             </table>
         </div>

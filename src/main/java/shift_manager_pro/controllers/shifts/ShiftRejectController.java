@@ -9,19 +9,19 @@ import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;
 import shift_manager_pro.utils.Views;
 
-public class ViewShiftsController implements Handler {
+public class ShiftRejectController implements Handler {
 
-  static final String PATH = Views.templatePath("employee/shifts/list.html");
+  static final String PATH = Views.templatePath("employee/shifts/reject.html");
 
   @Override
   public void handle(@NotNull Context ctx) throws Exception {
-    Map<String, Object> model = Views.baseModel(ctx);
-    model.put(
-      "shifts",
-      ShiftDao.INSTANCE.getByUserId(
-        AccessManager.getSessionCurrentUser(ctx).getId()
-      )
+    Shift shift = ShiftDao.INSTANCE.getById(
+      ctx.pathParam("shift_id", Long.class).get()
     );
+    shift.setStatus("REJECTED");
+    ShiftDao.INSTANCE.updateShift(shift);
+
+    Map<String, Object> model = Views.baseModel(ctx);
     ctx.render(PATH, model);
   }
 }
