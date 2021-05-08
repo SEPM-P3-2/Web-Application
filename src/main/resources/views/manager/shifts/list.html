@@ -19,7 +19,8 @@
 
     <!-- Begin THIS page content -->
     <main role="main" class="container ">
-        <h1>Shifts</h1>
+        <h1>Shifts <a th:if="${role =='MANAGER'}" class="btn btn-success" href="manager/shifts/new" role="button">Create a new shift</a>
+            </h1>
         <br>
 
         <div class="shifts-list">
@@ -55,6 +56,7 @@
                     <td th:text="${shift.endTime}"></td>
                     <td><span th:text="${shift.duration}"></span> hours</td>
                     <td th:text="${shift.info}"></td>
+                    <td th:if="${role =='MANAGER'}" class="btn btn-success" th:href="@{/shifts/{id}/edit(id=${shift.id})}" role="button">Edit shift</td>
                 </tr>
             </table>
         </div>

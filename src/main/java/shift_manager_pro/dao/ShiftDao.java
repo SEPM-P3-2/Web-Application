@@ -21,7 +21,7 @@ public class ShiftDao {
     "SELECT * FROM shifts WHERE startTime >= CURRENT_TIMESTAMP";
   private static final String UPDATE =
     "UPDATE shifts SET location_id = ?, user_id = ?, startTime = ?, endTime = ?, duration = ?, info = ? WHERE id = ?";
-
+  private static String DELETE = "DELETE FROM shifts WHERE id=?";
   public static ShiftDao INSTANCE = new ShiftDao();
 
   public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
@@ -67,6 +67,13 @@ public class ShiftDao {
     return shifts;
   }
 
+  public int delete(Shift shift) throws SQLException {
+    Connection connection = DBUtils.getConnection();
+    PreparedStatement stm = connection.prepareStatement(DELETE);
+    stm.setLong(1,shift.getId());
+    return stm.executeUpdate();
+  }
+
   public Shift create(Shift shift) throws SQLException {
     Connection connection = DBUtils.getConnection();
     PreparedStatement stm = connection.prepareStatement(
@@ -104,7 +111,7 @@ public class ShiftDao {
     return shift;
   }
 
-  public int updateShift(Shift shift) throws SQLException {
+  public int update(Shift shift) throws SQLException {
     Connection connection = DBUtils.getConnection();
     PreparedStatement stm = connection.prepareStatement(UPDATE);
     stm.setLong(1, shift.getLocation_id());

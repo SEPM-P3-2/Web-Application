@@ -45,8 +45,10 @@ public class App {
   public static void configureRoutes(Javalin app) {
     // Routing
     app.get(HomeController.URL, new HomeController());
-
-    // View shifts (only for registered users)
+      app.get("manager/shifts/new", new ShiftNewController(), roles(Role.MANAGER)); // Secured for ADMINs only
+      app.post("/shifts", new ShiftCreateController(), roles(Role.MANAGER)); // Secured for ADMINs only
+      app.post("/shifts/:id", new ShiftUpdateController(), roles(Role.MANAGER));
+      // View shifts (only for registered users)
     app.get(
       "/view_shifts",
       new ViewShiftsController(),

@@ -23,7 +23,7 @@ public class ShiftAllocateController implements Handler {
     );
     shift.setUser_id(user.getId());
 
-    ShiftDao.INSTANCE.updateShift(shift);
+    ShiftDao.INSTANCE.update(shift);
 
     context.redirect("/view_all_shifts");
   }

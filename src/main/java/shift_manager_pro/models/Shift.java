@@ -16,16 +16,16 @@ public class Shift {
 
 
     public Shift() {
-
-    }
-
-    public Shift(Long location_id, Long user_id, LocalDateTime startTime, LocalDateTime endTime, int duration) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
         this.user_id = user_id;
         this.location_id = location_id;
+        this.info = info;
 
+    }
+
+    public Shift(String user_id, String startTime, String endTime, String loc_id, String duration, String info) {
     }
 
     public Long getId() {
