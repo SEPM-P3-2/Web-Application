@@ -12,7 +12,7 @@ public class ShiftEditController implements Handler{
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
         Map<String, Object> model = Views.baseModel(ctx);
-        model.put("program", ShiftDao.INSTANCE.getById(ctx.pathParam("id", Long.class).get()));
+        model.put("shift", ShiftDao.INSTANCE.getById(ctx.pathParam("shift_id", Long.class).get()));
         ctx.render("/views/manager/shifts/edit.html", model);
     }
 }

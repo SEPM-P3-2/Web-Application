@@ -46,6 +46,7 @@ public class App {
     // Routing
     app.get(HomeController.URL, new HomeController());
       app.get("manager/shifts/new", new ShiftNewController(), roles(Role.MANAGER)); // Secured for ADMINs only
+      app.get( "manager/shifts/:shift_id/edit", new ShiftEditController(),roles(Role.MANAGER) );
       app.post("/shifts", new ShiftCreateController(), roles(Role.MANAGER)); // Secured for ADMINs only
       app.post("/shifts/:id", new ShiftUpdateController(), roles(Role.MANAGER));
       // View shifts (only for registered users)

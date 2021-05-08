@@ -57,7 +57,7 @@
                     <td th:text="${shift.endTime}"></td>
                     <td><span th:text="${shift.duration}"></span> hours</td>
                     <td th:text="${shift.info}"></td>
-                    <td th:if="${role =='MANAGER'}" class="btn btn-success" th:href="@{/shifts/{id}/edit(id=${shift.id})}" role="button">Edit shift</td>
+                    <td th:if="${role =='MANAGER'}" class="btn btn-success" th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}" role="button">Edit shift</td>
                     <td th:text="${shift.status}"></td>
 
                 </tr>
