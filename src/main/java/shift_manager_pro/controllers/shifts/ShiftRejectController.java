@@ -11,8 +11,6 @@ import shift_manager_pro.utils.Views;
 
 public class ShiftRejectController implements Handler {
 
-  static final String PATH = Views.templatePath("employee/shifts/reject.html");
-
   @Override
   public void handle(@NotNull Context ctx) throws Exception {
     Shift shift = ShiftDao.INSTANCE.getById(
@@ -21,7 +19,6 @@ public class ShiftRejectController implements Handler {
     shift.setStatus("REJECTED");
     ShiftDao.INSTANCE.updateShift(shift);
 
-    Map<String, Object> model = Views.baseModel(ctx);
-    ctx.render(PATH, model);
+    ctx.redirect("/view_my_shifts");
   }
 }

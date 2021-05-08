@@ -10,7 +10,6 @@ import shift_manager_pro.utils.Views;
 
 public class ShiftAcceptController implements Handler {
 
-  static final String PATH = Views.templatePath("employee/shifts/accept.html");
 
   @Override
   public void handle(@NotNull Context ctx) throws Exception {
@@ -20,7 +19,6 @@ public class ShiftAcceptController implements Handler {
     shift.setStatus("ACCEPTED");
     ShiftDao.INSTANCE.updateShift(shift);
 
-    Map<String, Object> model = Views.baseModel(ctx);
-    ctx.render(PATH, model);
+    ctx.redirect("/view_my_shifts");
   }
 }
