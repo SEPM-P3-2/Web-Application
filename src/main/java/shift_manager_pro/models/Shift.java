@@ -1,8 +1,6 @@
 package shift_manager_pro.models;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 public class Shift {
     private Long id = null;
@@ -12,7 +10,10 @@ public class Shift {
     private LocalDateTime endTime = null;
     private int duration = 0;
     private String info = null;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    // Status can only be 'ACCEPTED', 'REJECTED', 'PENDING' or 'UNALLOCATED'
+    private String status = "";
+
 
 
     public Shift() {
@@ -26,6 +27,14 @@ public class Shift {
         this.user_id = user_id;
         this.location_id = location_id;
 
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getId() {
