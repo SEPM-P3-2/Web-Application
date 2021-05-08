@@ -50,23 +50,46 @@ public class App {
       app.post("/shifts/:id", new ShiftUpdateController(), roles(Role.MANAGER));
       // View shifts (only for registered users)
     app.get(
-      "/view_shifts",
+      "/view_my_shifts",
       new ViewShiftsController(),
       roles(Role.EMPLOYEE, Role.MANAGER)
     );
     // View all shifts (only for managers)
-    app.get("/view_all_shifts", new ViewAllShiftsController(), roles(Role.MANAGER)); // only registered users may view shifts
+    app.get(
+      "/view_all_shifts",
+      new ViewAllShiftsController(),
+      roles(Role.MANAGER)
+    ); // only registered users may view shifts
 
     // Allocate shifts
     app.get(
       "/allocate/:user_id/:shift_id",
       new ShiftAllocateController(),
       roles(Role.MANAGER)
-    ); // only registered users may view shifts
+    );
+    
+    // Accept shifts
+    app.get(
+      "/allocate/:user_id/:shift_id/accept",
+      new ShiftAcceptController(),
+      roles(Role.MANAGER)
+    );
+
+    // Reject shifts
+    app.get(
+      "/allocate/:user_id/:shift_id/reject",
+      new ShiftRejectController(),
+      roles(Role.MANAGER)
+    );
+
+    // only registered users may view shifts
     app.get(
       "/shift_preferences",
       ctx -> {
-        ctx.render("/views/employee//shifts/calendar.html", Views.baseModel(ctx));
+        ctx.render(
+          "/views/employee//shifts/calendar.html",
+          Views.baseModel(ctx)
+        );
       }
     );
     //Auth

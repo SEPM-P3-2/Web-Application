@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import shift_manager_pro.models.Role;
 import shift_manager_pro.models.Shift;
-import shift_manager_pro.models.User;
 
 public class ShiftDao {
 
@@ -16,12 +14,15 @@ public class ShiftDao {
   private static final String SELECT_BY_ID =
     "SELECT * FROM shifts WHERE id = ?";
   private static final String INSERT =
-    "INSERT INTO shifts(location_id, user_id, startTime, endTime, duration, info) VALUES(?,?,?,?,?,?)";
+    "INSERT INTO shifts(location_id, user_id, startTime, endTime, duration, info, status) VALUES(?,?,?,?,?,?,?)";
   private static final String SELECT_FROM_NOW =
     "SELECT * FROM shifts WHERE startTime >= CURRENT_TIMESTAMP";
   private static final String UPDATE =
-    "UPDATE shifts SET location_id = ?, user_id = ?, startTime = ?, endTime = ?, duration = ?, info = ? WHERE id = ?";
+          "UPDATE shifts SET location_id = ?, user_id = ?, startTime = ?, endTime = ?, duration = ?, info = ?, status = ? WHERE id = ?";
   private static String DELETE = "DELETE FROM shifts WHERE id=?";
+
+
+
   public static ShiftDao INSTANCE = new ShiftDao();
 
   public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
@@ -86,6 +87,7 @@ public class ShiftDao {
     stm.setString(4, shift.getEndTime().toString());
     stm.setInt(5, shift.getDuration());
     stm.setString(6, shift.getInfo());
+    stm.setString(7, shift.getStatus());
     stm.executeUpdate();
     ResultSet generatedKeys = stm.getGeneratedKeys();
     if (generatedKeys.next()) {
@@ -108,10 +110,11 @@ public class ShiftDao {
     shift.setEndTime(LocalDateTime.parse(rs.getString(5), formatter));
     shift.setDuration(rs.getInt(6));
     shift.setInfo(rs.getString(7));
+    shift.setStatus(rs.getString(8));
     return shift;
   }
 
-  public int update(Shift shift) throws SQLException {
+  public int updateShift(Shift shift) throws SQLException {
     Connection connection = DBUtils.getConnection();
     PreparedStatement stm = connection.prepareStatement(UPDATE);
     stm.setLong(1, shift.getLocation_id());
@@ -120,7 +123,8 @@ public class ShiftDao {
     stm.setString(4, String.valueOf(shift.getEndTime()));
     stm.setInt(5, shift.getDuration());
     stm.setString(6, shift.getInfo());
-    stm.setLong(7, shift.getId());
+    stm.setString(7,shift.getStatus());
+    stm.setLong(8, shift.getId());
     return stm.executeUpdate();
   }
 }

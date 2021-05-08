@@ -6,6 +6,7 @@ CREATE TABLE shifts(
     endTime TIMESTAMP not null,
     duration INT not null,
     info VARCHAR(MAX),
+    status VARCHAR not null,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_location_id FOREIGN KEY (location_id) REFERENCES locations(id)
 );
