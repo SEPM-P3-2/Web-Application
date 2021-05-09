@@ -18,10 +18,10 @@
 
 <!-- Begin THIS page content -->
 <main role="main" class="container ">
-    <h1>Edit Workout</h1>
+    <h1>Edit Shift</h1>
 
-    <form th:action="@{/shifts/{id}(id=${shift.id})}" method="post">
-        <th:block th:include="/views/workouts/_form.html :: form"></th:block>
+    <form th:action="@{/shifts/{shift_id}(shift_id=${shift.id})}" method="post">
+        <th:block th:include="/views/manager/shifts/createShift.html :: create"></th:block>
     </form>
 </main>
 <!-- End THIS page content -->

@@ -5,8 +5,16 @@
 <div th:fragment="create">
     <input  type="hidden" name="id" >
         <div class="form-group">
-            <label for="location">Location</label>
-            <input  class="form-control" id="location" type="location" name="location" required>
+            <div class="dropdown">
+                <button type="button" class="btn btn-warning dropdown-toggle"
+                        data-toggle="dropdown">
+                    Locations
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" th:each="location : ${locations}"
+
+                       th:text="${location}"></a>
+                </div>
         </div>
         <div class="form-group">
             <label for="startTime">Enter startTime</label>
