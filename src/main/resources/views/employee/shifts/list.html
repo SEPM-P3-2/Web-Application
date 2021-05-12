@@ -27,32 +27,34 @@
                 <th>Location</th>
                 <th>Start Time</th>
                 <th>End Time</th>
-                <th>Duration</th>
+                <th>Break Time</th>
                 <th>Info</th>
                 <th>Status</th>
                 <tr th:each="shift : ${shifts}">
-                    <td th:text="${locations[shift.location_id-1]}"></td>
-                    <td th:text="${shift.startTime}"></td>
-                    <td th:text="${shift.endTime}"></td>
-                    <td><span th:text="${shift.duration}"></span> hours</td>
-                    <td th:text="${shift.info}"></td>
-                    <td>
-                        <span th:if="${shift.status=='PENDING'}">
-                            <form>
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-warning dropdown-toggle"
-                                        data-toggle="dropdown">
-                                        PENDING
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                            th:href="@{/allocate/{user_id}/{shift_id}/accept(shift_id=${shift.id}, user_id=${user.id})}">ACCEPT</a>
-                                        <a class="dropdown-item"
-                                            th:href="@{/allocate/{user_id}/{shift_id}/reject(shift_id=${shift.id}, user_id=${user.id})}">REJECT</a>
+                    <div th:unless="${shift.status=='REJECTED'}">
+                        <td th:text="${locations[shift.location_id-1].name}"></td>
+                        <td th:text="${shift.startTime}"></td>
+                        <td th:text="${shift.endTime}"></td>
+                        <td><span th:text="${shift.breakTime}"></span> hours</td>
+                        <td th:text="${shift.info}"></td>
+                        <td>
+                            <span th:if="${shift.status=='PENDING'}">
+                                <form>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-warning dropdown-toggle"
+                                            data-toggle="dropdown">
+                                            PENDING
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                                th:href="@{/allocate/{user_id}/{shift_id}/accept(shift_id=${shift.id}, user_id=${user.id})}">ACCEPT</a>
+                                            <a class="dropdown-item"
+                                                th:href="@{/allocate/{user_id}/{shift_id}/reject(shift_id=${shift.id}, user_id=${user.id})}">REJECT</a>
+                                        </div>
                                     </div>
-                                </div>
-                        </span>
-                    </td>
+                            </span>
+                        </td>
+                    </div>
                 </tr>
             </table>
         </div>

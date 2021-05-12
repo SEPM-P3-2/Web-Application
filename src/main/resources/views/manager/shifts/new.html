@@ -21,8 +21,8 @@
 <main role="main" class="container ">
     <h1>New Shift</h1>
 
-    <form action="/shifts" method="post">
-        <th:block th:include="/views/manager/shifts/createShift.html :: create"></th:block>
+    <form action="/shifts/create" method="post">
+        <th:block th:include="/views/manager/shifts/_form.html :: form"></th:block>
     </form>
 </main>
 <!-- End THIS page content -->
