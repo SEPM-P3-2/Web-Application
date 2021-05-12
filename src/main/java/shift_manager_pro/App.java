@@ -13,6 +13,7 @@ import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.auth.LoginController;
 import shift_manager_pro.auth.RegisterController;
 import shift_manager_pro.controllers.HomeController;
+import shift_manager_pro.controllers.availability.AvailabilityCreateController;
 import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
 import shift_manager_pro.models.Role;
@@ -62,7 +63,7 @@ public class App {
     app.get("/availabilities/new", ctx -> {
         ctx.render("/views/employee/availabilities/new.html", Views.baseModel(ctx));
     }, roles(Role.EMPLOYEE, Role.MANAGER));
-    //app.post("availabilities/new", new CreateAvailabilityController());
+    app.post("availabilities/new", new AvailabilityCreateController());
 
     // View all shifts (only for managers)
     app.get(
