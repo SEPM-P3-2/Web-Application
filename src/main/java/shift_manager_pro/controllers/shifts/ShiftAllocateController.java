@@ -19,9 +19,6 @@ public class ShiftAllocateController implements Handler {
     Shift shift = ShiftDao.INSTANCE.getById(
       ctx.pathParam("shift_id", Long.class).get()
     );
-    Location location= LocationDao.INSTANCE.get(
-            ctx.pathParam("shift_id", Long.class).get()
-    );
     shift.setUser_id(user.getId());
     shift.setStatus("PENDING");
 

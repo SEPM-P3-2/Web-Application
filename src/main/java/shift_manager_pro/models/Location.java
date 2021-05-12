@@ -2,27 +2,27 @@ package shift_manager_pro.models;
 
 
 public class Location {
-    private Long loc_id = null;
+    private Long id = null;
     private String name = null;
     private String address = null;
-    private int telephone= 0;
+    private String telephone= null;
 
     public Location(){
 
     }
 
-    public Location(String name, String address, int telephone) {
+    public Location(String name, String address, String telephone) {
         this.address = address;
         this.name = name;
         this.telephone = telephone;
     }
 
-    public Long getLoc_id() {
-        return loc_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setLoc_id(Long loc_id) {
-        this.loc_id = loc_id;
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getAddress() {
@@ -41,18 +41,18 @@ public class Location {
         this.name = name;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
     @Override
     public String toString() {
         return "Location{" +
-                "loc_id=" + loc_id +
+                "id=" + id +
                 ", address='" + address + '\'' +
                 ", name='" + name + '\'' +
                 ", telephone=" + telephone +

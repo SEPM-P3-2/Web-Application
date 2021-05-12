@@ -4,7 +4,7 @@ CREATE TABLE shifts(
     user_id INT,
     startTime TIMESTAMP not null,
     endTime TIMESTAMP not null,
-    duration INT not null,
+    breakTime INT not null,
     info VARCHAR(MAX),
     status VARCHAR not null,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id),

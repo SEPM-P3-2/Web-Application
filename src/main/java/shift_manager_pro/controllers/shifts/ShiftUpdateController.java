@@ -14,7 +14,7 @@ public class ShiftUpdateController implements Handler{
         shift.setUser_id(Long.valueOf(ctx.formParam("user_id")));
         shift.setStartTime(LocalDateTime.parse(ctx.formParam("startTime")));
         shift.setEndTime(LocalDateTime.parse(ctx.formParam("endTime")));
-        shift.setDuration(Integer.parseInt(ctx.formParam("Duration")));
+        shift.setBreakTime(Integer.parseInt(ctx.formParam("breakTime")));
         shift.setInfo(ctx.formParam("info"));
         ShiftDao.INSTANCE.updateShift(shift);
         ctx.redirect("/shifts/" + shift.getId());

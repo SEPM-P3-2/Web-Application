@@ -29,7 +29,7 @@
                 <th>Location</th>
                 <th>Start Time</th>
                 <th>End Time</th>
-                <th>Duration</th>
+                <th>Break Time</th>
                 <th>Info</th>
                 <th>Status</th>
                 <tr th:each="shift : ${shifts}">
@@ -52,10 +52,10 @@
                         <span th:unless="${shift.user_id==0}"><span
                                 th:text="${users[shift.user_id-1].name}"></span></span>
                     </td>
-                    <td th:text="${locations[shift.location_id-1]}"></td>
-                    <td th:text="${shift.startTime}"></td>
-                    <td th:text="${shift.endTime}"></td>
-                    <td><span th:text="${shift.duration}"></span> hours</td>
+                    <td th:text="${locations[shift.location_id-1].name}"></td>
+                    <td><input th:value="${shift.startTime}" type="datetime-local" disabled></td>
+                    <td><input th:value="${shift.endTime}" type="datetime-local" disabled></td>
+                    <td><span th:text="${shift.breakTime}"></span> minutes</td>
                     <td th:text="${shift.info}"></td>
                     <td th:text="${shift.status}"></td>
                     <td th:if="${role =='MANAGER'}" class="btn btn-success" th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}" role="button">Edit shift</td>

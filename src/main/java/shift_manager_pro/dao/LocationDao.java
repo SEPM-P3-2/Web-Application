@@ -16,19 +16,18 @@ public class LocationDao {
   private static String SELECT_ALL = "SELECT * FROM locations";
   // private static String SELECT_BY_ID = "SELECT * FROM locations WHERE id=?";
   private static final String SELECT_BY_ID =
-          "SELECT * FROM locations WHERE loc_id = ?";
+          "SELECT * FROM locations WHERE id = ?";
 
   private LocationDao() {}
 
-  public List<String> getAll() throws SQLException {
+  public List<Location> getAll() throws SQLException {
     Connection connection = DBUtils.getConnection();
-    Statement stm = connection.createStatement();
-    ResultSet rs = stm.executeQuery(SELECT_ALL);
-    List<String> locations = new ArrayList<>();
+    PreparedStatement stm = connection.prepareStatement(SELECT_ALL);
+    ResultSet rs = stm.executeQuery();
+    List<Location> locations = new ArrayList<>();
     while (rs.next()) {
-      locations.add(rs.getString(2));
+      locations.add(mapLocation(rs));
     }
-    connection.close();
     return locations;
   }
   public Location get(Long id) throws SQLException {
@@ -45,10 +44,10 @@ public class LocationDao {
   }
   private Location mapLocation(ResultSet rs) throws SQLException {
     Location location = new Location();
-    location.setTelephone(rs.getInt(4));
-    location.setName(rs.getString(3));
-    location.setAddress(rs.getString(2));
-    location.setLoc_id(rs.getLong(1));
+    location.setTelephone(rs.getString(4));
+    location.setName(rs.getString(2));
+    location.setAddress(rs.getString(3));
+    location.setId(rs.getLong(1));
     return location;
   }
 

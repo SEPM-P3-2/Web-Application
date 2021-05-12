@@ -70,8 +70,7 @@ public class App {
     // View all shifts (only for managers)
     app.get(
       "/view_all_shifts",
-      new ViewAllShiftsController(),
-      roles(Role.MANAGER)
+      new ViewAllShiftsController()
     ); // only registered users may view shifts
 
     // Allocate shifts
@@ -85,14 +84,14 @@ public class App {
     app.get(
       "/allocate/:user_id/:shift_id/accept",
       new ShiftAcceptController(),
-      roles(Role.MANAGER)
+      roles(Role.MANAGER, Role.EMPLOYEE)
     );
 
     // Reject shifts
     app.get(
       "/allocate/:user_id/:shift_id/reject",
       new ShiftRejectController(),
-      roles(Role.MANAGER)
+      roles(Role.MANAGER, Role.EMPLOYEE)
     );
 
     // only registered users may view shifts
