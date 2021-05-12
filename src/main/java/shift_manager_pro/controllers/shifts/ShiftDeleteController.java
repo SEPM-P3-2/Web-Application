@@ -10,6 +10,6 @@ public class ShiftDeleteController implements Handler {
     public void handle(@NotNull Context ctx) throws Exception {
         Shift shift = ShiftDao.INSTANCE.getById(ctx.pathParam("shift_id", Long.class).get());
         ShiftDao.INSTANCE.delete(shift);
-        ctx.redirect("/shifts");
+        ctx.redirect("/view_all_shifts");
     }
 }

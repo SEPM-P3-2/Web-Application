@@ -47,31 +47,58 @@ public class App {
   public static void configureRoutes(Javalin app) {
     // Routing
     app.get(HomeController.URL, new HomeController());
-      app.get("manager/shifts/new", new ShiftNewController(), roles(Role.MANAGER)); // Secured for ADMINs only
-      app.get( "manager/shifts/:shift_id/edit", new ShiftEditController(),roles(Role.MANAGER) );
-      app.post("/shifts", new ShiftCreateController(), roles(Role.MANAGER)); // Secured for ADMINs only
-      app.get("/shifts/:id/edit", new ShiftEditController(), roles(Role.MANAGER)); //Secured for ADMINs only
-      app.post("/shifts/:id", new ShiftUpdateController(), roles(Role.MANAGER));
-      app.get("/shifts/:id/delete", new ShiftDeleteController(), roles(Role.MANAGER));
-      // View shifts (only for registered users)
+
+    app.get("/shifts/new", new ShiftNewController(), roles(Role.MANAGER));
+
+    app.post(
+      "/shifts/create",
+      new ShiftCreateController(),
+      roles(Role.MANAGER)
+    );
+
+    app.get(
+      "/shifts/:shift_id/edit",
+      new ShiftEditController(),
+      roles(Role.MANAGER)
+    );
+
+    app.post(
+      "/shifts/:shift_id/update",
+      new ShiftUpdateController(),
+      roles(Role.MANAGER)
+    );
+
+    app.get(
+      "/shifts/:shift_id/delete",
+      new ShiftDeleteController(),
+      roles(Role.MANAGER)
+    );
+    // View shifts (only for registered users)
     app.get(
       "/view_my_shifts",
       new ViewShiftsController(),
       roles(Role.EMPLOYEE, Role.MANAGER)
     );
 
-
-    app.get("/view_availabilities", new ViewAvailabilitiesController(), roles(Role.EMPLOYEE, Role.MANAGER));
-    app.get("/availabilities/new", ctx -> {
-        ctx.render("/views/employee/availabilities/new.html", Views.baseModel(ctx));
-    }, roles(Role.EMPLOYEE, Role.MANAGER));
+    app.get(
+      "/view_availabilities",
+      new ViewAvailabilitiesController(),
+      roles(Role.EMPLOYEE, Role.MANAGER)
+    );
+    app.get(
+      "/availabilities/new",
+      ctx -> {
+        ctx.render(
+          "/views/employee/availabilities/new.html",
+          Views.baseModel(ctx)
+        );
+      },
+      roles(Role.EMPLOYEE, Role.MANAGER)
+    );
     app.post("availabilities/new", new AvailabilityCreateController());
 
     // View all shifts (only for managers)
-    app.get(
-      "/view_all_shifts",
-      new ViewAllShiftsController()
-    ); // only registered users may view shifts
+    app.get("/view_all_shifts", new ViewAllShiftsController()); // only registered users may view shifts
 
     // Allocate shifts
     app.get(
@@ -79,7 +106,7 @@ public class App {
       new ShiftAllocateController(),
       roles(Role.MANAGER)
     );
-    
+
     // Accept shifts
     app.get(
       "/allocate/:user_id/:shift_id/accept",
@@ -105,9 +132,12 @@ public class App {
       }
     );
     //Auth
-    app.get("/login", ctx -> {
+    app.get(
+      "/login",
+      ctx -> {
         ctx.render("/views/auth/login.html", Views.baseModel(ctx));
-    });
+      }
+    );
 
     app.get(
       "/register",

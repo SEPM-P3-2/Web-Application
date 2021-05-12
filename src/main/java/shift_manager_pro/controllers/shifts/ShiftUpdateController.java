@@ -17,7 +17,7 @@ public class ShiftUpdateController implements Handler{
         shift.setBreakTime(Integer.parseInt(ctx.formParam("breakTime")));
         shift.setInfo(ctx.formParam("info"));
         ShiftDao.INSTANCE.updateShift(shift);
-        ctx.redirect("/shifts/" + shift.getId());
+        ctx.redirect("/view_all_shifts");
 
     }
 }
