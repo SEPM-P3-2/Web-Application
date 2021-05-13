@@ -58,7 +58,7 @@
                     <td><span th:text="${shift.breakTime}"></span> minutes</td>
                     <td th:text="${shift.info}"></td>
                     <td th:text="${shift.status}"></td>
-                    <td><a th:if="${role =='MANAGER'}" class="btn btn-success" th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}" role="button">Edit shift</a></td>
+                    <td><a th:if="${role =='MANAGER'}" class="btn btn-success" th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}" role="button">Edit</a></td>
                     <td><a th:if="${role =='MANAGER'}" th:href="@{/shifts/{shift_id}/delete(shift_id=${shift.id})}" class="btn btn-outline-danger">Delete</a></td>
                 </tr>
             </table>
