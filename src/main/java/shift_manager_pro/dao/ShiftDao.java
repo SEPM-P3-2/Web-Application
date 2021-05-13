@@ -13,17 +13,15 @@ public class ShiftDao {
     "SELECT * FROM shifts WHERE user_id = ?";
   private static final String SELECT_BY_ID =
     "SELECT * FROM shifts WHERE id = ?";
-    private static final String INSERT =
+  private static final String INSERT =
     "INSERT INTO shifts(location_id, user_id, startTime, endTime, breakTime, info, status) VALUES(?,?,?,?,?,?,?)";
-    private static final String INSERT_UNALLOCATED =
+  private static final String INSERT_UNALLOCATED =
     "INSERT INTO shifts(location_id, startTime, endTime, breakTime, info, status) VALUES(?,?,?,?,?,?)";
   private static final String SELECT_FROM_NOW =
     "SELECT * FROM shifts WHERE startTime >= CURRENT_TIMESTAMP";
   private static final String UPDATE =
-          "UPDATE shifts SET location_id = ?, user_id = ?, startTime = ?, endTime = ?, breakTime = ?, info = ?, status = ? WHERE id = ?";
+    "UPDATE shifts SET location_id = ?, user_id = ?, startTime = ?, endTime = ?, breakTime = ?, info = ?, status = ? WHERE id = ?";
   private static String DELETE = "DELETE FROM shifts WHERE id=?";
-
-
 
   public static ShiftDao INSTANCE = new ShiftDao();
 
@@ -73,7 +71,7 @@ public class ShiftDao {
   public int delete(Shift shift) throws SQLException {
     Connection connection = DBUtils.getConnection();
     PreparedStatement stm = connection.prepareStatement(DELETE);
-    stm.setLong(1,shift.getId());
+    stm.setLong(1, shift.getId());
     return stm.executeUpdate();
   }
 
@@ -125,6 +123,7 @@ public class ShiftDao {
     connection.close();
     return shift;
   }
+
   private Shift mapShift(ResultSet rs) throws SQLException {
     // location_id, job_id, user_id, startTime, endTime, breakTime, description
     Shift shift = new Shift();
@@ -142,13 +141,17 @@ public class ShiftDao {
   public int updateShift(Shift shift) throws SQLException {
     Connection connection = DBUtils.getConnection();
     PreparedStatement stm = connection.prepareStatement(UPDATE);
+    if (shift.getUser_id() != null) {
+      stm.setLong(2, shift.getUser_id());
+    } else {
+      stm.setString(2, null);
+    }
     stm.setLong(1, shift.getLocation_id());
-    stm.setLong(2, shift.getUser_id());
     stm.setString(3, String.valueOf(shift.getStartTime()));
     stm.setString(4, String.valueOf(shift.getEndTime()));
     stm.setInt(5, shift.getBreakTime());
     stm.setString(6, shift.getInfo());
-    stm.setString(7,shift.getStatus());
+    stm.setString(7, shift.getStatus());
     stm.setLong(8, shift.getId());
     return stm.executeUpdate();
   }
