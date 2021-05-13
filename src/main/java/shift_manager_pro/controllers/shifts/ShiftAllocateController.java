@@ -5,12 +5,8 @@ import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;
-import shift_manager_pro.utils.Views;
 
 public class ShiftAllocateController implements Handler {
-
-  static final String PATH = Views.templatePath("manager/shifts/list.html");
-
   @Override
   public void handle(@NotNull Context ctx) throws Exception {
     User user = UserDao.INSTANCE.get(
