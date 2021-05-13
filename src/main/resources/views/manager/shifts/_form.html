@@ -5,7 +5,6 @@
     <div th:fragment="form">
         <input th:value="${shift.id}" type="hidden" name="id">
         <select name="location_id" class="custom-select">
-            <option selected th:text="${locations[shift.location_id-1].name}" value="${shift.location_id}"></option>
             <option th:each="location : ${locations}" th:text="${location.name}" th:value="${location.id}" required>
             </option>
             Location</option>
