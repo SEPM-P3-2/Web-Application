@@ -53,6 +53,8 @@
                                         </div>
                                     </div>
                             </span>
+                            <span th:unless="${shift.status=='PENDING'}" th:text="${shift.status}">
+                            </span>
                         </td>
                     </div>
                 </tr>
