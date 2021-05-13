@@ -6,8 +6,10 @@ import java.time.LocalDateTime;
 import org.jetbrains.annotations.NotNull;
 import shift_manager_pro.dao.ShiftDao;
 import shift_manager_pro.models.Shift;
+import shift_manager_pro.utils.Views;
 
 public class ShiftCreateController implements Handler {
+  static final String PATH = Views.templatePath("manager/shifts/list.html");
 
   @Override
   public void handle(@NotNull Context ctx) throws Exception {
