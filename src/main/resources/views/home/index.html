@@ -15,7 +15,7 @@
 <header th:replace="/views/fragments/common.html :: header"></header>
 
 <!-- Begin THIS page content -->
-<main role="main" class="container ">
+<div class="header">
 
     <div>
         <h1 class="display-4">Welcome to Shift Manager Pro</h1>
@@ -35,11 +35,10 @@
         <img src="images/desk.jpg" class="welcome-img">
     </div>
 
-</main>
+</div>
 <!-- End THIS page content -->
 
-<!-- Footer is located in common.html -->
-<footer class="footer" th:replace="/views/fragments/common.html :: footer"> </footer>
+
 
 <!-- Bootstrap Scripts  -->
 <th:block th:include="/views/fragments/common.html :: scripts"></th:block>
