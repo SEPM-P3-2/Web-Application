@@ -10,17 +10,17 @@ import shift_manager_pro.models.User;
 
 public class RegisterController implements Handler {
 
-    @Override
-    public void handle(@NotNull Context ctx) throws Exception {
-        User user = new User(
-                ctx.formParam("email"),
-                ctx.formParam("full_name"),
-                Role.valueOf(ctx.formParam("role"))
-        );
-        user.setPassword(
-                BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt())
-        );
-        user = UserDao.INSTANCE.create(user);
-        ctx.redirect("/users/" + user.getId());
-    }
+  @Override
+  public void handle(@NotNull Context ctx) throws Exception {
+    User user = new User(
+      ctx.formParam("email"),
+      ctx.formParam("full_name"),
+      Role.valueOf(ctx.formParam("role"))
+    );
+    user.setJob_id(Long.valueOf(ctx.formParam("job_id")));
+    user.setPassword(BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt())
+    );
+    user = UserDao.INSTANCE.create(user);
+    ctx.redirect("/");
+  }
 }

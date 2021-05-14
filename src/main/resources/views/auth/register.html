@@ -1,45 +1,61 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <th:block th:include="/views/fragments/common.html :: commonhead"></th:block>
 
-  <title>Register</title>
+<head>
+    <!-- Common head content is included from common.html  -->
+    <th:block th:include="/views/fragments/common.html :: commonhead"></th:block>
+
+    <!-- Include custom head for this head after this line -->
+    <title>Shift Manager Pro</title>
 </head>
 
 <body>
 
-<header th:replace="/views/fragments/common.html :: header"></header>
 
-<main role="main" class="container ">
-  <h2>Register a new Account</h2>
-  <br>
-  <form action="/register" method="post">
-    <div class="form-group">
-      <label for="full_name">Full Name</label>
-      <input class="form-control" id="full_name" name="full_name" required>
-      <label for="email">Email</label>
-      <input class="form-control" id="email" type="email" name="email" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Enter Password</label>
-      <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
-    </div>
-    <div class="form-group">
-      <label for="role">Select Role</label>
-      <select class="form-control" id="role" name="role" placeholder="Enter password" required>
-        <option value="EMPLOYEE" selected>Employee</option>
-        <option value="MANAGER">Manager</option>
-      </select>
-    </div>
+    <!-- Begin THIS page content -->
+    <header th:replace="/views/fragments/common.html::header"></header>
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="header">
+                <h1 class="header-title">
+                    Register Account </h1>
+                <br>
+            </div>
+            <div class="container">
+                <br>
+                <form action="/register" method="post">
+                    <div class="form-group">
+                        <label for="full_name">Full Name</label>
+                        <input class="form-control" id="full_name" name="full_name" required>
+                        <label for="email">Email</label>
+                        <input class="form-control" id="email" type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Enter Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Select Role</label>
+                        <select class="form-control" id="role" name="role" required>
+              <option value="EMPLOYEE" selected>Employee</option>
+              <option value="MANAGER">Manager</option>
+            </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="job_id" class="form-control" id="job_id" required>
+              <option disabled hidden>Select Job</option>
+              <option th:each="job : ${jobs}" th:text="${job.name}" th:value="${job.id}" required></option>
+            </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <div>
+                </div>
+    </main>
 
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
-  <div>
-  </div>
-</main>
+    <footer class="footer" th:replace="/views/fragments/common.html :: footer"> </footer>
 
-<footer class="footer" th:replace="/views/fragments/common.html :: footer"> </footer>
-
-<th:block th:include="/views/fragments/common.html :: scripts"></th:block>
+    <th:block th:include="/views/fragments/common.html :: scripts"></th:block>
 </body>
+
 </html>

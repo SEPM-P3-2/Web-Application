@@ -26,8 +26,7 @@ public class User {
     public User(String email, String name, Role role) {
         this.email = email;
         this.name = name;
-        this.role = role;
-    }
+        this.role = role;    }
 
     public Long getId() {
         return id;

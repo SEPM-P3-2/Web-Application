@@ -83,8 +83,8 @@ public class UserDao {
     stm.setString(1, user.getEmail());
     stm.setString(2, user.getName());
     stm.setLong(3, user.getJob_id());
-    stm.setString(5, user.getPassword());
-    stm.setString(4, String.valueOf(user.getRole()));
+    stm.setString(4, user.getPassword());
+    stm.setString(5, String.valueOf(user.getRole()));
     stm.executeUpdate();
     ResultSet generatedKeys = stm.getGeneratedKeys();
     if (generatedKeys.next()) {

@@ -15,12 +15,19 @@
 
     <!-- Begin THIS page content -->
     <header th:replace="/views/fragments/common.html::header"></header>
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="header">
+                <h1 class="header-title">
+                    Edit Shift </h1>
+                <br>
+            </div>
+            <div class="container">
 
-    <h1>Edit Shift</h1>
-
-    <form th:action="@{/shifts/{shift_id}(shift_id=${shift.id})}" method="post">
-        <th:block th:include="/views/manager/shifts/_form.html :: form"></th:block>
-    </form>
+                <form th:action="@{/shifts/{shift_id}(shift_id=${shift.id})}" method="post">
+                    <th:block th:include="/views/manager/shifts/_form.html :: form"></th:block>
+                </form>
+            </div>
     </main>
     <!-- End THIS page content -->
 

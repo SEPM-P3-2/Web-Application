@@ -15,13 +15,19 @@
 
     <!-- Begin THIS page content -->
     <header th:replace="/views/fragments/common.html::header"></header>
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="header">
+                <h1 class="header-title">
+                    New Shift </h1>
+                <br>
+            </div>
+            <div class="container">
 
-    <h1>New Shift</h1>
-
-    <form action="/shifts/create" method="post">
-        <th:block th:include="/views/manager/shifts/_form.html :: form"></th:block>
-        <button type="submit" class="btn btn-primary">Create Shift</button>
-    </form>
+                <form action="/shifts/create" method="post">
+                    <th:block th:include="/views/manager/shifts/_form.html :: form"></th:block>
+                    <button type="submit" class="btn btn-primary">Create Shift</button>
+                </form>
     </main>
     </div>
     <!-- End THIS page content -->
