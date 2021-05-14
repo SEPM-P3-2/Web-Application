@@ -98,7 +98,7 @@ public class App {
     app.post("availabilities/new", new AvailabilityCreateController());
 
     // View all shifts (only for managers)
-    app.get("/view_all_shifts", new ViewAllShiftsController()); // only registered users may view shifts
+    app.get("/view_all_shifts", new ViewAllShiftsController(), roles(Role.MANAGER));
 
     // Allocate shifts
     app.get(
