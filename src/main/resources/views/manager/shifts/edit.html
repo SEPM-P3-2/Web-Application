@@ -24,8 +24,9 @@
             </div>
             <div class="container">
 
-                <form th:action="@{/shifts/{shift_id}(shift_id=${shift.id})}" method="post">
+                <form th:action="@{/shifts/{shift_id}/update(shift_id=${shift.id})}" method="post">
                     <th:block th:include="/views/manager/shifts/_form.html :: form"></th:block>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
     </main>
