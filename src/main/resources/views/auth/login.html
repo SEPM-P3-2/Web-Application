@@ -7,7 +7,6 @@
 
     <!-- Include custom head for this head after this line -->
     <title>Shift Manager Pro</title>
-    <link href="/css/welcome.css" rel="stylesheet">
 </head>
 
 <body>
@@ -15,28 +14,29 @@
 
     <!-- Begin THIS page content -->
     <header th:replace="/views/fragments/common.html::header"></header>
-    <main class="content">
+    <main role="main" class="content">
         <div class="container-fluid">
-            <hr class="my-4">
-            <hr class="my-4">
-            <h2>Log in to your account</h2>
-            <br>
-            <form action="/auth" method="post">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input class="form-control" id="email" type="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
-                        required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-        </div>
+            <div class="header">
+                <h1 class="header-title">
+                    Log In
+                </h1>
+                <br>
+            </div>
+            <div class="container">
+                <form action="/auth" method="post">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" id="email" type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
     </main>
-    </div>
 
     <!-- End THIS page content -->
 

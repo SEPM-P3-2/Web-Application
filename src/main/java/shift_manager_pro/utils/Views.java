@@ -43,6 +43,8 @@ public class Views {
         model.put("user_logged_in", (user.getRole() == Role.ANONYMOUS ? false : true));
         model.put("role", user.getRole().toString());
         model.put("locations", LocationDao.INSTANCE.getAll());
+        model.put("jobs", JobDao.INSTANCE.getAll());
+
         return model;
     }
 }

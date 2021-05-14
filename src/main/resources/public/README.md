@@ -1,3 +1,3 @@
-# Spark - Responsive Bootstrap 5 Admin & Dashboard Template
+API key
 
-Thanks for buying. Navigate to `docs/docs-getting-started.html` to get started.
+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

@@ -14,54 +14,65 @@
 <body>
 
     <!-- Nav bar is located in common.html -->
-    <header th:replace="/views/fragments/common.html :: header"></header>
-
-    <!-- Begin THIS page content -->
-    <main role="main" class="container ">
-        <h1>Shifts <a th:if="${role =='MANAGER'}" class="btn btn-success" href="/shifts/new" role="button">Create a new shift</a>
-        </h1>
-        <br>
-
-        <div class="shifts-list">
-            <table class="table">
-                <th>Employee</th>
-                <th>Location</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Break Time</th>
-                <th>Info</th>
-                <th>Status</th>
-                <tr th:each="shift : ${shifts}">
-                    <td>
-                        <span th:if="${shift.user_id==0}">
-                            <form>
-
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-warning dropdown-toggle"
-                                        data-toggle="dropdown">
-                                        Not Assigned
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" th:each="user : ${users}"
-                                            th:href="@{/allocate/{user_id}/{shift_id}(shift_id=${shift.id}, user_id=${user.id})}"
-                                            th:text="${user.name}"></a>
+    <header th:replace="/views/fragments/common.html::header"></header>
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="header">
+                <h1 class="header-title">
+                    All Shifts </h1>
+                <br>
+            </div>
+            <div class="container">
+                <div class="shifts-list">
+                    <table class="table">
+                        <th>Employee</th>
+                        <th>Location</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Break Time</th>
+                        <th>Info</th>
+                        <th>Status</th>
+                        <tr th:each="shift : ${shifts}">
+                            <td>
+                                <span th:if="${shift.user_id==0}">
+                                    <form>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-warning dropdown-toggle"
+                                                data-toggle="dropdown">
+                                                Assign to
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" th:each="user : ${users}"
+                                                    th:href="@{/allocate/{user_id}/{shift_id}(shift_id=${shift.id}, user_id=${user.id})}"
+                                                    th:text="${user.name}"></a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </span>
+                                <span th:unless="${shift.user_id==0}"><span
+                                        th:text="${users[shift.user_id-1].name}"></span></span>
+                            </td>
+                            <td th:text="${locations[shift.location_id-1].name}"></td>
+                            <td><input th:value="${shift.startTime}" type="datetime-local" disabled></td>
+                            <td><input th:value="${shift.endTime}" type="datetime-local" disabled></td>
+                            <td><span th:text="${shift.breakTime}"></span> minutes</td>
+                            <td th:text="${shift.info}"></td>
+                            <td th:text="${shift.status}"></td>
+                            <td th:if="${role =='MANAGER'}">
+                                <form>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                            Action </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}">Edit</a>
+                                            <a class="dropdown-item" th:href="@{/shifts/{shift_id}/delete(shift_id=${shift.id})}">Dele</a>
+                                        </div>
                                     </div>
-                                </div>
-                        </span>
-                        <span th:unless="${shift.user_id==0}"><span
-                                th:text="${users[shift.user_id-1].name}"></span></span>
-                    </td>
-                    <td th:text="${locations[shift.location_id-1].name}"></td>
-                    <td><input th:value="${shift.startTime}" type="datetime-local" disabled></td>
-                    <td><input th:value="${shift.endTime}" type="datetime-local" disabled></td>
-                    <td><span th:text="${shift.breakTime}"></span> minutes</td>
-                    <td th:text="${shift.info}"></td>
-                    <td th:text="${shift.status}"></td>
-                    <td><a th:if="${role =='MANAGER'}" class="btn btn-success" th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}" role="button">Edit</a></td>
-                    <td><a th:if="${role =='MANAGER'}" th:href="@{/shifts/{shift_id}/delete(shift_id=${shift.id})}" class="btn btn-outline-danger">Delete</a></td>
-                </tr>
-            </table>
-        </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
     </main>
     <!-- End THIS page content -->
 

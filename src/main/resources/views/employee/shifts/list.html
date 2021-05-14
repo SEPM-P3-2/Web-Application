@@ -15,30 +15,34 @@
 <body>
 
     <!-- Nav bar is located in common.html -->
-    <header th:replace="/views/fragments/common.html :: header"></header>
+    <header th:replace="/views/fragments/common.html::header"></header>
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="header">
+                <h1 class="header-title">
+                    Shifts for <span th:text="${user.name}"></span>
+                    <br>
+            </div>
+            <div class="container">
+                <br>
 
-    <!-- Begin THIS page content -->
-    <main role="main" class="container ">
-        <h1>Shifts for <span th:text="${user.name}"></span></h1>
-        <br>
-
-        <div class="shifts-list">
-            <table class="table">
-                <th>Location</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Break Time</th>
-                <th>Info</th>
-                <th>Status</th>
-                <tr th:each="shift : ${shifts}">
-                    <div th:unless="${shift.status=='REJECTED'}">
-                        <td th:text="${locations[shift.location_id-1].name}"></td>
-                        <td th:text="${shift.startTime}"></td>
-                        <td th:text="${shift.endTime}"></td>
-                        <td><span th:text="${shift.breakTime}"></span> hours</td>
-                        <td th:text="${shift.info}"></td>
-                        <td>
-                            <span th:if="${shift.status=='PENDING'}">
+                <div class="shifts-list">
+                    <table class="table">
+                        <th>Location</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Break Time</th>
+                        <th>Info</th>
+                        <th>Status</th>
+                        <tr th:each="shift : ${shifts}">
+                            <div th:unless="${shift.status=='REJECTED'}">
+                                <td th:text="${locations[shift.location_id-1].name}"></td>
+                                <td th:text="${shift.startTime}"></td>
+                                <td th:text="${shift.endTime}"></td>
+                                <td><span th:text="${shift.breakTime}"></span> hours</td>
+                                <td th:text="${shift.info}"></td>
+                                <td>
+                                    <span th:if="${shift.status=='PENDING'}">
                                 <form>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-warning dropdown-toggle"
@@ -53,13 +57,13 @@
                                         </div>
                                     </div>
                             </span>
-                            <span th:unless="${shift.status=='PENDING'}" th:text="${shift.status}">
+                                    <span th:unless="${shift.status=='PENDING'}" th:text="${shift.status}">
                             </span>
-                        </td>
-                    </div>
-                </tr>
-            </table>
-        </div>
+                                </td>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
     </main>
     <!-- End THIS page content -->
 
