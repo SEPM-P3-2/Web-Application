@@ -24,20 +24,17 @@ public class ShiftAllocateController implements Handler {
 
     ShiftDao.INSTANCE.updateShift(shift);
 
-    Email from = new Email("admin@smp.com");
+    Email from = new Email("SMP@smp.com");
     String subject = "New Shift Allocation";
     Email to = new Email("");
     Content content = new Content("text/plain", "New Shift" + shift.toString());
 
-    SendGrid sg = new SendGrid("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");
+    SendGrid sg = new SendGrid(
+      "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"
+    );
     Request request = new Request();
     to.setEmail(user.getEmail());
     Mail mail = new Mail(from, subject, to, content);
-    DynamicTemplatePersonalization personalization = new DynamicTemplatePersonalization();
-    mail.setTemplateId("d-bb27cd4441b1478393213cd8bd0ba1b3");
-
-    personalization.addTo(to);
-    mail.addPersonalization(personalization);
 
     try {
       request.setMethod(Method.POST);

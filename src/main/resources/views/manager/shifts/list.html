@@ -19,8 +19,9 @@
         <div class="container-fluid">
             <div class="header">
                 <h1 class="header-title">
-                    All Shifts </h1>
-                <br>
+                    All Shifts
+                    <a th:if="${role == 'MANAGER'}" style=" float: center;" class="btn btn-success" href="/shifts/new">Create Shift</a>
+                </h1> <br>
             </div>
             <div class="container">
                 <div class="shifts-list">
@@ -43,29 +44,29 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" th:each="user : ${users}"
-                                                    th:href="@{/allocate/{user_id}/{shift_id}(shift_id=${shift.id}, user_id=${user.id})}"
+                                                    th:href="@{/allocate/{user_id}/{shift_id}(shift_id=${shift.id}, user_id=${user.id})} "
                                                     th:text="${user.name}"></a>
                                             </div>
                                         </div>
                                     </form>
                                 </span>
-                                <span th:unless="${shift.user_id==0}"><span
-                                        th:text="${users[shift.user_id-1].name}"></span></span>
+                                <span th:unless="${shift.user_id==0} "><span
+                                        th:text="${users[shift.user_id-1].name} "></span></span>
                             </td>
-                            <td th:text="${locations[shift.location_id-1].name}"></td>
-                            <td><input th:value="${shift.startTime}" type="datetime-local" disabled></td>
-                            <td><input th:value="${shift.endTime}" type="datetime-local" disabled></td>
-                            <td><span th:text="${shift.breakTime}"></span> minutes</td>
-                            <td th:text="${shift.info}"></td>
-                            <td th:text="${shift.status}"></td>
-                            <td th:if="${role =='MANAGER'}">
+                            <td th:text="${locations[shift.location_id-1].name} "></td>
+                            <td><input th:value="${shift.startTime} " type="datetime-local " disabled></td>
+                            <td><input th:value="${shift.endTime} " type="datetime-local " disabled></td>
+                            <td><span th:text="${shift.breakTime} "></span> minutes</td>
+                            <td th:text="${shift.info} "></td>
+                            <td th:text="${shift.status} "></td>
+                            <td>
                                 <form>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
                                             Action </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}">Edit</a>
-                                            <a class="dropdown-item" th:href="@{/shifts/{shift_id}/delete(shift_id=${shift.id})}">Dele</a>
+                                            <a class="dropdown-item" th:href="@{/shifts/{shift_id}/delete(shift_id=${shift.id})}">Delete</a>
                                         </div>
                                     </div>
                                 </form>
@@ -73,15 +74,16 @@
                         </tr>
                     </table>
                 </div>
+            </div>
     </main>
     <!-- End THIS page content -->
 
 
     <!-- Footer is located in common.html -->
-    <footer class="footer" th:replace="/views/fragments/common.html :: footer"></footer>
+    <footer class="footer " th:replace="/views/fragments/common.html :: footer "></footer>
 
     <!-- Bootstrap Scripts  -->
-    <th:block th:include="/views/fragments/common.html :: scripts"></th:block>
+    <th:block th:include="/views/fragments/common.html :: scripts "></th:block>
 </body>
 
 </html>
