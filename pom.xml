@@ -105,6 +105,12 @@
             <version>3.15.0</version>
             <scope>test</scope>
         </dependency>
+    
+      <dependency>
+        <groupId>com.expediagroup.streamplatform</groupId>
+        <artifactId>stream-registry-handler-spi</artifactId>
+        <version>0.19.1</version>
+      </dependency>
     </dependencies>
 
 
