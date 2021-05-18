@@ -17,6 +17,8 @@ public class UserDao {
 
   private static final String INSERT =
     "INSERT INTO users(email, name, job_id, password, role) VALUES(?,?,?,?,?)";
+  private static final String UPDATE =
+    "UPDATE shifts SET email = ?, name = ?, job_id = ?, password = ?, role = ? WHERE id = ?";
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
@@ -105,4 +107,19 @@ public class UserDao {
     user.setId(rs.getLong(1));
     return user;
   }
-}
+
+public int updateUser(User user) throws SQLException {
+  Connection connection = DBUtils.getConnection();
+  PreparedStatement stm = connection.prepareStatement(UPDATE);
+  if (user.getId() != null) {
+    stm.setLong(2, user.getId());
+  } else {
+    stm.setString(2, null);
+  }
+  stm.setString(1, user.getEmail());
+  stm.setString(2, user.getName());
+  stm.setLong(3, user.getJob_id());
+  stm.setString(4, user.getPassword());
+  stm.setString(5, String.valueOf(user.getRole()));
+  return stm.executeUpdate();
+}}

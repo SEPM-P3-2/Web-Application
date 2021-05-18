@@ -16,6 +16,7 @@ import shift_manager_pro.controllers.HomeController;
 import shift_manager_pro.controllers.availability.AvailabilityCreateController;
 import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
+import shift_manager_pro.controllers.user.UpdatePasswordController;
 import shift_manager_pro.models.Role;
 import shift_manager_pro.utils.Views;
 
@@ -126,18 +127,24 @@ public class App {
       "/shift_preferences",
       ctx -> {
         ctx.render(
-          "/views/employee//shifts/calendar.html",
+          "/views/employee/shifts/calendar.html",
           Views.baseModel(ctx)
         );
-      }
+      },
+      roles(Role.MANAGER, Role.EMPLOYEE)
     );
-    //Auth
+    // change password (only registered user)
     app.get(
-      "/login",
+      "/edit_password",
       ctx -> {
-        ctx.render("/views/auth/login.html", Views.baseModel(ctx));
-      }
+        ctx.render(Views.templatePath("auth/reset_password.html"), Views.baseModel(ctx));
+      },
+      roles(Role.MANAGER,Role.EMPLOYEE)
     );
+
+    app.post(
+      "/edit_password",
+      new UpdatePasswordController());
 
     app.get(
       "/register",
@@ -150,7 +157,11 @@ public class App {
     );
 
     app.post("/register", new RegisterController());
-
+    app.get(
+      "/login",
+      ctx -> {
+        ctx.render("/views/auth/login.html", Views.baseModel(ctx));
+    });
     app.post("auth", new LoginController());
     app.get(
       "/logout",
