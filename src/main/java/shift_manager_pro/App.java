@@ -138,9 +138,7 @@ public class App {
       "/edit_password",
       ctx -> {
         ctx.render(Views.templatePath("auth/reset_password.html"), Views.baseModel(ctx));
-      },
-      roles(Role.MANAGER,Role.EMPLOYEE)
-    );
+      });
 
     app.post(
       "/edit_password",
