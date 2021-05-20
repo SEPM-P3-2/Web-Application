@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;
 
-public class ShiftAcceptController implements Handler {
+public class ShiftCancelController implements Handler {
 
 
   @Override
@@ -14,7 +14,7 @@ public class ShiftAcceptController implements Handler {
     Shift shift = ShiftDao.INSTANCE.getById(
       ctx.pathParam("shift_id", Long.class).get()
     );
-    shift.setStatus("ACCEPTED");
+    shift.setStatus("CANCELED");
     ShiftDao.INSTANCE.updateShift(shift);
 
     ctx.redirect("/view_my_shifts");

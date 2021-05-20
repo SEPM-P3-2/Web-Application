@@ -1,13 +1,15 @@
 package shift_manager_pro.controllers.shifts;
 
-import com.sendgrid.*;
+import java.time.LocalDateTime;
+
+import org.jetbrains.annotations.NotNull;
+
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import org.jetbrains.annotations.NotNull;
-import shift_manager_pro.dao.*;
-import shift_manager_pro.models.*;
+import shift_manager_pro.dao.ShiftDao;
+import shift_manager_pro.dao.UserDao;
+import shift_manager_pro.models.Shift;
+import shift_manager_pro.models.User;
 import shift_manager_pro.utils.EmailSender;
 
 public class ShiftUpdateController implements Handler {

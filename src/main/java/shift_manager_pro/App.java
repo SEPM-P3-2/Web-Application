@@ -120,6 +120,12 @@ public class App {
       roles(Role.MANAGER, Role.EMPLOYEE)
     );
 
+    app.get(
+      "/allocate/:user_id/:shift_id/cancel",
+      new ShiftCancelController(),
+      roles(Role.MANAGER, Role.EMPLOYEE)
+    );
+
     // Reject shifts
     app.get(
       "/allocate/:user_id/:shift_id/reject",
