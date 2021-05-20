@@ -82,6 +82,12 @@ public class App {
     );
 
     app.get(
+      "/view_shift_history",
+      new ViewShiftsHistoryController(),
+      roles(Role.EMPLOYEE, Role.MANAGER)
+    );
+
+    app.get(
       "/view_availabilities",
       new ViewAvailabilitiesController(),
       roles(Role.EMPLOYEE, Role.MANAGER)

@@ -20,7 +20,7 @@
         <div class="container-fluid">
             <div class="header">
                 <h1 class="header-title">
-                    Shifts for <span th:text="${user.name}"></span>
+                    Shift History for <span th:text="${user.name}"></span>
                     <br>
             </div>
             <div class="container">
@@ -43,35 +43,24 @@
                                 <td th:text="${shift.info}"></td>
                                 <td>
                                     <span th:if="${shift.status=='PENDING'}">
-                                        <form>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-warning dropdown-toggle"
-                                                    data-toggle="dropdown">
-                                                    PENDING
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                        th:href="@{/allocate/{user_id}/{shift_id}/accept(shift_id=${shift.id}, user_id=${user.id})}">ACCEPT</a>
-                                                    <a class="dropdown-item"
-                                                        th:href="@{/allocate/{user_id}/{shift_id}/reject(shift_id=${shift.id}, user_id=${user.id})}">REJECT</a>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </span>
-                                    <span th:unless="${shift.status=='PENDING'}" th:text="${shift.status}">
-                                    </span>
-                                </td>
-                                <td th:if="${user_logged_in}">
-                                    <form>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                                                Action </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" th:href="@{/shifts/{shift_id}/cancel(shift_id=${shift.id})}">Cancel</a>                                            </div>
+                                <form>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-warning dropdown-toggle"
+                                            data-toggle="dropdown">
+                                            PENDING
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                                th:href="@{/allocate/{user_id}/{shift_id}/accept(shift_id=${shift.id}, user_id=${user.id})}">ACCEPT</a>
+                                            <a class="dropdown-item"
+                                                th:href="@{/allocate/{user_id}/{shift_id}/reject(shift_id=${shift.id}, user_id=${user.id})}">REJECT</a>
                                         </div>
-                                    </form>
+                                    </div>
+                            </span>
+                                    <span th:unless="${shift.status=='PENDING'}" th:text="${shift.status}">
+                            </span>
                                 </td>
-
+                            </div>
                         </tr>
                     </table>
                 </div>
