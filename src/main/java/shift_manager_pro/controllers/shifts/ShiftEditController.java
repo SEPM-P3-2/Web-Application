@@ -1,6 +1,5 @@
 package shift_manager_pro.controllers.shifts;
 import shift_manager_pro.dao.*;
-import shift_manager_pro.models.Shift;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;

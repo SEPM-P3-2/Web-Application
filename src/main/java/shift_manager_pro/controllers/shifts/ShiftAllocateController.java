@@ -1,9 +1,7 @@
 package shift_manager_pro.controllers.shifts;
 
-import com.sendgrid.*;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
-import java.io.IOException;
 import org.jetbrains.annotations.NotNull;
 import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;

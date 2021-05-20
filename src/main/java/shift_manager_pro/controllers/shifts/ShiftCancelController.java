@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;
 
-public class ShiftAcceptController implements Handler {
+public class ShiftCancelController implements Handler {
 
 
   @Override

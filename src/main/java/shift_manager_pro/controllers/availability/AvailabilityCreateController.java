@@ -3,14 +3,10 @@ package shift_manager_pro.controllers.availability;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
-import org.mindrot.jbcrypt.BCrypt;
 import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.dao.AvailabilityDao;
-import shift_manager_pro.dao.UserDao;
 import shift_manager_pro.models.Availability;
 import shift_manager_pro.models.Role;
-import shift_manager_pro.models.User;
-
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
