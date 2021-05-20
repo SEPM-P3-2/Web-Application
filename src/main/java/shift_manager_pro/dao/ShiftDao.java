@@ -17,8 +17,10 @@ public class ShiftDao {
     "INSERT INTO shifts(location_id, user_id, startTime, endTime, breakTime, info, status) VALUES(?,?,?,?,?,?,?)";
   private static final String INSERT_UNALLOCATED =
     "INSERT INTO shifts(location_id, startTime, endTime, breakTime, info, status) VALUES(?,?,?,?,?,?)";
-  private static final String SELECT_FROM_NOW =
+  private static final String SELECT_ALL_FROM_NOW =
     "SELECT * FROM shifts WHERE startTime >= CURRENT_TIMESTAMP";
+  private static final String SELECT_BY_USER_ID_FROM_NOW =
+    "SELECT * FROM shifts WHERE startTime >= CURRENT_TIMESTAMP AND user_id = ?";
   private static final String UPDATE =
     "UPDATE shifts SET location_id = ?, user_id = ?, startTime = ?, endTime = ?, breakTime = ?, info = ?, status = ? WHERE id = ?";
   private static String DELETE = "DELETE FROM shifts WHERE id=?";
@@ -46,7 +48,7 @@ public class ShiftDao {
 
   public List<Shift> getFromNow() throws SQLException {
     Connection connection = DBUtils.getConnection();
-    PreparedStatement stm = connection.prepareStatement(SELECT_FROM_NOW);
+    PreparedStatement stm = connection.prepareStatement(SELECT_ALL_FROM_NOW);
     ResultSet rs = stm.executeQuery();
     List<Shift> shifts = new ArrayList<>();
     while (rs.next()) {
@@ -62,6 +64,18 @@ public class ShiftDao {
     ResultSet rs = stm.executeQuery();
     List<Shift> shifts = new ArrayList<Shift>();
 
+    while (rs.next()) {
+      shifts.add(mapShift(rs));
+    }
+    return shifts;
+  }
+
+  public List<Shift> getFromNowByUserId(long user_id) throws SQLException {
+    Connection connection = DBUtils.getConnection();
+    PreparedStatement stm = connection.prepareStatement(SELECT_BY_USER_ID_FROM_NOW);
+    stm.setLong(1, user_id);
+    ResultSet rs = stm.executeQuery();
+    List<Shift> shifts = new ArrayList<Shift>();
     while (rs.next()) {
       shifts.add(mapShift(rs));
     }

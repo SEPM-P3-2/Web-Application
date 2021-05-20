@@ -18,8 +18,7 @@ public class RegisterController implements Handler {
       Role.valueOf(ctx.formParam("role"))
     );
     user.setJob_id(Long.valueOf(ctx.formParam("job_id")));
-    user.setPassword(BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt())
-    );
+    user.setPassword(BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt()));
     user = UserDao.INSTANCE.create(user);
     ctx.redirect("/");
   }
