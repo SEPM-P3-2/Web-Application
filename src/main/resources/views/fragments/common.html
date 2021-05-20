@@ -28,7 +28,7 @@
                 <div class="sidebar-content">
                     <div class="sidebar-user">
                         <!-- <img src="images/avatars/avatar.jpg" class="img-fluid rounded-circle mb-2" alt="Linda Miller" /> -->
-                        <div class="fw-bold"> <span th:text="${user.preferred_name}"></span></div>
+                        <div class="fw-bold"> <span th:text="${user.name}"></span></div>
                         <small th:if="${role =='MANAGER'}">Manager</small>
                         <small th:if="${role =='EMPLOYEE'}">Employee</small>
                     </div>
@@ -66,9 +66,8 @@
                                 <li class="sidebar-item" th:if="${role =='MANAGER'}"><a class="sidebar-link"
                                         href="/register">Register New Account</a></li>
                                 <li class="sidebar-item" th:if="${user_logged_in}"><a class="sidebar-link"
-                                        href="/edit_password">Reset Password</a></li>
-                                <li class="sidebar-item" th:if="${user_logged_in}"><a class="sidebar-link"
-                                    href="/update_account">Update Account Detail</a></li>
+                                        href="/edit_password">Reset
+                                        Password</a></li>
                             </ul>
                         </li>
 

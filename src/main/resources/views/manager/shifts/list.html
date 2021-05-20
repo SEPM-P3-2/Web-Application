@@ -45,7 +45,7 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" th:each="user : ${users}"
                                                     th:href="@{/allocate/{user_id}/{shift_id}(shift_id=${shift.id}, user_id=${user.id})} "
-                                                    th:text="${user.preferred_name}"></a>
+                                                    th:text="${user.name}"></a>
                                             </div>
                                         </div>
                                     </form>

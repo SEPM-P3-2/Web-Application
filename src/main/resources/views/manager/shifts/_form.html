@@ -15,7 +15,7 @@
         <div class="form-group">
             <label for="user_id">Select Staff</label>
             <select class="form-control" id="user_id" name="user_id">
-                <option th:each="user : ${users}" th:text="${user.preferred_name}" th:value="${user.id}">Staff</option>
+                <option th:each="user : ${users}" th:text="${user.name}" th:value="${user.id}">Staff</option>
                 <option value="0" selected>Unasigned</option>
             </select>
         </div>
