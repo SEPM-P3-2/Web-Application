@@ -14,12 +14,12 @@ public class RegisterController implements Handler {
   public void handle(@NotNull Context ctx) throws Exception {
     User user = new User(
       ctx.formParam("email"),
-      ctx.formParam("full_name"),
+      ctx.formParam("name"),
       Role.valueOf(ctx.formParam("role"))
     );
-    user.setJobId(Long.valueOf(ctx.formParam("job_id")));
-    user.setPreferedName(String.valueOf(ctx.formParam("preferred_name")));
-    user.setHomeAddress(String.valueOf(ctx.formParam("home_address")));
+    user.setJob_id(Long.valueOf(ctx.formParam("job_id")));
+    user.setPreferred_name(String.valueOf(ctx.formParam("preferred_name")));
+    user.setHome_address(String.valueOf(ctx.formParam("home_address")));
     user.setPassword(BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt()));
     user = UserDao.INSTANCE.create(user);
     ctx.redirect("/");

@@ -16,7 +16,7 @@ public class EmailSender {
     Content content = new Content(
       "text/plain",
       "New Shift for " +
-      user.getPreferedName() +
+      user.getPreferred_name() +
       " :" +
       "\nLocation: " +
       LocationDao.INSTANCE.get(shift.getLocation_id()).getName() +

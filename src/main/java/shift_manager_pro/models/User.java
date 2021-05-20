@@ -6,28 +6,43 @@ import io.javalin.core.security.Role;
 public class User {
     private Long id = null;
     private String email = null;
-    private String fullName = null;
+    private String name = null;
     private Role role = null;
-    private Long jobId = null;
+    private Long job_id = null;
+    private String preferred_name = null;
+    private String home_address = null;
     private String password;
-    private String preferredName = null;
-    private String homeAddress = null;
 
+    public String getPreferred_name() {
+        return preferred_name;
+    }
+
+    public void setPreferred_name(String preferred_name) {
+        this.preferred_name = preferred_name;
+    }
+
+    public String getHome_address() {
+        return home_address;
+    }
+
+    public void setHome_address(String home_address) {
+        this.home_address = home_address;
+    }
     public User(){
 
     }
 
-    public Long getJobId() {
-        return jobId;
+    public Long getJob_id() {
+        return job_id;
     }
 
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
+    public void setJob_id(Long job_id) {
+        this.job_id = job_id;
     }
 
-    public User(String email, String fullName, Role role) {
+    public User(String email, String name, Role role) {
         this.email = email;
-        this.fullName = fullName;
+        this.name = name;
         this.role = role;    }
 
     public Long getId() {
@@ -46,12 +61,12 @@ public class User {
         this.email = email;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Role getRole() {
@@ -69,28 +84,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getPreferedName(){
-        return preferredName;
-    }
-    public void setPreferedName(String preferredName){
-        this.preferredName=preferredName;
-    }
-    public String getHomeAddress(){
-        return homeAddress;
-    }
-    public void setHomeAddress(String homeAddress){
-        this.homeAddress=homeAddress;
-    }
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", full_name='" + fullName + '\'' +
-                ", job_id='" + jobId + '\'' + 
+                ", name='" + name + '\'' +
+                ", job_id='" + job_id + '\'' + 
                 ", role=" + role + '\'' +
-                ", prefered_name='" + preferredName + '\'' +
-                ", home_address='" + homeAddress + 
+                ", prefered_name='" + preferred_name + '\'' +
+                ", home_address='" + home_address + 
                 '}';
     }
 }
