@@ -9,7 +9,7 @@ import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;
 import shift_manager_pro.utils.Views;
 
-public class ViewShiftsController implements Handler {
+public class ViewShiftsHistoryController implements Handler {
 
   static final String PATH = Views.templatePath("employee/shifts/list.html");
 
@@ -18,7 +18,7 @@ public class ViewShiftsController implements Handler {
     Map<String, Object> model = Views.baseModel(ctx);
     model.put(
       "shifts",
-      ShiftDao.INSTANCE.getFromNowByUserId(
+      ShiftDao.INSTANCE.getByUserId(
         AccessManager.getSessionCurrentUser(ctx).getId()
       )
     );

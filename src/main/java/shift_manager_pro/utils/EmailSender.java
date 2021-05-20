@@ -3,13 +3,8 @@ package shift_manager_pro.utils;
 import com.sendgrid.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import org.mindrot.jbcrypt.BCrypt;
 import shift_manager_pro.dao.LocationDao;
-import shift_manager_pro.models.Location;
-import shift_manager_pro.models.Shift;
-import shift_manager_pro.models.User;
+import shift_manager_pro.models.*;
 
 public class EmailSender {
 

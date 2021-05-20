@@ -7,7 +7,6 @@ import io.javalin.core.util.RouteOverviewPlugin;
 import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Map;
 import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.auth.LoginController;
@@ -78,6 +77,12 @@ public class App {
     app.get(
       "/view_my_shifts",
       new ViewShiftsController(),
+      roles(Role.EMPLOYEE, Role.MANAGER)
+    );
+
+    app.get(
+      "/view_shift_history",
+      new ViewShiftsHistoryController(),
       roles(Role.EMPLOYEE, Role.MANAGER)
     );
 
