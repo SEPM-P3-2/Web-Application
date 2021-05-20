@@ -62,14 +62,9 @@
                                     </span>
                                 </td>
                                 <td th:if="${user_logged_in}">
-                                    <form>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                                                Action </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" th:href="@{/shifts/{shift_id}/cancel(shift_id=${shift.id})}">Cancel</a>                                            </div>
-                                        </div>
-                                    </form>
+                                    <button type="button" th:href="@{/shifts/{shift_id}/cancel(shift_id=${shift.id})}"
+                                        class="btn btn-warning">
+                                        Cancel </button>
                                 </td>
 
                         </tr>

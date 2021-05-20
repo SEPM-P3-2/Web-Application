@@ -5,7 +5,6 @@ import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.dao.AvailabilityDao;
-import shift_manager_pro.dao.ShiftDao;
 import shift_manager_pro.utils.Views;
 
 import java.util.Map;

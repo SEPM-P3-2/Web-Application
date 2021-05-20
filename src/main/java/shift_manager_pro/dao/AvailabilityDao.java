@@ -1,15 +1,17 @@
 package shift_manager_pro.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import shift_manager_pro.models.Availability;
-import shift_manager_pro.models.Shift;
 
 public class AvailabilityDao {
 

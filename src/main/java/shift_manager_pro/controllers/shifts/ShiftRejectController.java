@@ -1,13 +1,11 @@
 package shift_manager_pro.controllers.shifts;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
-import java.util.Map;
-import org.jetbrains.annotations.NotNull;
-import shift_manager_pro.auth.AccessManager;
-import shift_manager_pro.dao.*;
-import shift_manager_pro.models.*;
-import shift_manager_pro.utils.Views;
+import shift_manager_pro.dao.ShiftDao;
+import shift_manager_pro.models.Shift;
 
 public class ShiftRejectController implements Handler {
 
