@@ -16,9 +16,9 @@ public class UserDao {
   private static final String SELECT_ALL = "SELECT * FROM users";
 
   private static final String INSERT =
-    "INSERT INTO users(email, name, job_id, password, role) VALUES(?,?,?,?,?)";
+    "INSERT INTO users(email, full_name, job_id, role, preferred_name, home_address, password) VALUES(?,?,?,?,?,?,?)";
   private static final String UPDATE =
-    "UPDATE shifts SET email = ?, name = ?, job_id = ?, password = ?, role = ? WHERE id = ?";
+    "UPDATE shifts SET email = ?, full_name = ?, job_id = ? , role = ?, preferred_name = ?, home_address = ? , password = ? WHERE id = ?";
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
@@ -43,8 +43,11 @@ public class UserDao {
     if (rs.next()) {
       User user = new User();
       user.setEmail(rs.getString(2));
-      user.setName(rs.getString(3));
-      user.setRole(Role.valueOf(rs.getString(6)));
+      user.setFullName(rs.getString(3));
+      user.setJobId(rs.getLong(4));
+      user.setPreferedName(rs.getString(5));
+      user.setHomeAddress(rs.getString(6));
+      user.setRole(Role.valueOf(rs.getString(7)));
       user.setId(rs.getLong(1));
       return user;
     }
@@ -82,11 +85,12 @@ public class UserDao {
       INSERT,
       Statement.RETURN_GENERATED_KEYS
     );
-    stm.setString(1, user.getEmail());
-    stm.setString(2, user.getName());
-    stm.setLong(3, user.getJob_id());
-    stm.setString(4, user.getPassword());
+    stm.setString(2, user.getEmail());
+    stm.setString(3, user.getFullName());
+    stm.setLong(4, user.getJobId());
+    stm.setString(7, user.getPassword());
     stm.setString(5, String.valueOf(user.getRole()));
+    stm.setString(6, user.getPreferedName());
     stm.executeUpdate();
     ResultSet generatedKeys = stm.getGeneratedKeys();
     if (generatedKeys.next()) {
@@ -101,8 +105,11 @@ public class UserDao {
 
   private User mapUser(ResultSet rs) throws SQLException {
     User user = new User();
-    user.setJob_id(rs.getLong(4));
-    user.setName(rs.getString(3));
+    user.setRole(Role.valueOf(rs.getString(7)));
+    user.setPreferedName(rs.getString(5));
+    user.setHomeAddress(rs.getString(6));
+    user.setJobId(rs.getLong(4));
+    user.setFullName(rs.getString(3));
     user.setEmail(rs.getString(2));
     user.setId(rs.getLong(1));
     return user;
@@ -112,14 +119,15 @@ public int updateUser(User user) throws SQLException {
   Connection connection = DBUtils.getConnection();
   PreparedStatement stm = connection.prepareStatement(UPDATE);
   if (user.getId() != null) {
-    stm.setLong(2, user.getId());
+    stm.setLong(1, user.getId());
   } else {
-    stm.setString(2, null);
+    stm.setString(1, null);
   }
-  stm.setString(1, user.getEmail());
-  stm.setString(2, user.getName());
-  stm.setLong(3, user.getJob_id());
-  stm.setString(4, user.getPassword());
+  stm.setString(2, user.getEmail());
+  stm.setString(3, user.getFullName());
+  stm.setLong(4, user.getJobId());
+  stm.setString(7, user.getPassword());
   stm.setString(5, String.valueOf(user.getRole()));
+  stm.setString(6, user.getPreferedName());
   return stm.executeUpdate();
 }}

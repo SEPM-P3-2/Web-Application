@@ -1,5 +1,4 @@
 package shift_manager_pro.controllers.user;
-import org.mindrot.jbcrypt.BCrypt;
 
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -16,9 +15,10 @@ public class UpdateDetailController implements Handler {
       ctx.pathParam("id", Long.class).get()
     );
     user.setEmail(String.valueOf(ctx.formParam("email")));
-    user.setName(String.valueOf(ctx.formParam("name")));
-    user.setRole(Role.valueOf(ctx.formParam("role")));
-    user.setJob_id(Long.valueOf(ctx.formParam("job_id")));
+    user.setFullName(String.valueOf(ctx.formParam("name")));
+    user.setJobId(Long.valueOf(ctx.formParam("job_id")));
+    user.setPreferedName(String.valueOf(ctx.formParam("preferred_name")));
+    user.setHomeAddress(String.valueOf(ctx.formParam("home_address")));
     UserDao.INSTANCE.updateUser(user);
     ctx.redirect("/");
   }

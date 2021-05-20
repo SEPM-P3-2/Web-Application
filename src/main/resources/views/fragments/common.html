@@ -28,7 +28,7 @@
                 <div class="sidebar-content">
                     <div class="sidebar-user">
                         <!-- <img src="images/avatars/avatar.jpg" class="img-fluid rounded-circle mb-2" alt="Linda Miller" /> -->
-                        <div class="fw-bold"> <span th:text="${user.name}"></span></div>
+                        <div class="fw-bold"> <span th:text="${user.preferred_name}"></span></div>
                         <small th:if="${role =='MANAGER'}">Manager</small>
                         <small th:if="${role =='EMPLOYEE'}">Employee</small>
                     </div>
