@@ -71,14 +71,23 @@
                         </li>
 
                         <li class="sidebar-header">
-                            Elements
+                           Availability
+                        </li>
+                        <li th:unless="${user_logged_in}" class="sidebar-header">
+                            <i>Please sign in to see your availabilities</i>
                         </li>
 
                         <li class="sidebar-item active">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/view_availabilities">
+                        <li th:unless="${!user_logged_in}" class="sidebar-item">
+                            <a class="sidebar-link" th:href="@{/view_availabilities/{id}(id=${user_id})}">
                                 <i class="align-middle me-2 far fa-fw fa-calendar-alt"></i> <span
-                                    class="align-middle">Availability</span>
+                                    class="align-middle">My Availability</span>
+                            </a>
+                        </li>
+                        <li th:if="${role =='MANAGER'}" class="sidebar-item">
+                            <a class="sidebar-link" href="/view_all_availabilities">
+                                <i class="align-middle me-2 far fa-fw fa-calendar-check"></i> <span
+                                    class="align-middle">All Availabilities</span>
                             </a>
                         </li>
                         </li>

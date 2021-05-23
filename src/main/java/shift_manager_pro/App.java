@@ -13,6 +13,7 @@ import shift_manager_pro.auth.LoginController;
 import shift_manager_pro.auth.RegisterController;
 import shift_manager_pro.controllers.HomeController;
 import shift_manager_pro.controllers.availability.AvailabilityCreateController;
+import shift_manager_pro.controllers.availability.ViewAllAvailabilitiesController;
 import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
 import shift_manager_pro.controllers.user.UpdateDetailController;
@@ -87,10 +88,11 @@ public class App {
     );
 
     app.get(
-      "/view_availabilities",
+      "/view_availabilities/:id",
       new ViewAvailabilitiesController(),
       roles(Role.EMPLOYEE, Role.MANAGER)
     );
+
     app.get(
       "/availabilities/new",
       ctx -> {
@@ -102,6 +104,9 @@ public class App {
       roles(Role.EMPLOYEE, Role.MANAGER)
     );
     app.post("availabilities/new", new AvailabilityCreateController());
+
+    // all availabilities
+    app.get("/view_all_availabilities", new ViewAllAvailabilitiesController(), roles(Role.MANAGER));
 
     // View all shifts (only for managers)
     app.get("/view_all_shifts", new ViewAllShiftsController(), roles(Role.MANAGER));
