@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import shift_manager_pro.models.Role;
 import shift_manager_pro.models.User;
 
@@ -17,9 +18,9 @@ public class UserDao {
   private static final String SELECT_ALL = "SELECT * FROM users";
 
   private static final String INSERT =
-    "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address, standard_working_hour) VALUES(?,?,?,?,?,?,?,?)";
+    "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address, standard_working_hour, phone_number) VALUES(?,?,?,?,?,?,?,?,?)";
   private static final String UPDATE =
-    "UPDATE users SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ?, standard_working_hour = ? WHERE id = ?";
+    "UPDATE users SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ?, standard_working_hour = ?, phone_number = ? WHERE id = ?";
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
@@ -50,6 +51,7 @@ public class UserDao {
       user.setPreferred_name(rs.getString(7));
       user.setHome_address(rs.getString(8));
       user.setStandard_working_hour(rs.getInt(9));
+      user.setPhone_number(rs.getString(10));
       user.setId(rs.getLong(1));
       return user;
     }
@@ -95,6 +97,7 @@ public class UserDao {
     stm.setString(6, user.getPreferred_name());
     stm.setString(7, user.getHome_address());
     stm.setInt(8, user.getStandard_working_hour());
+    stm.setString(9,user.getPhone_number());
     stm.executeUpdate();
     ResultSet generatedKeys = stm.getGeneratedKeys();
     if (generatedKeys.next()) {
@@ -109,6 +112,7 @@ public class UserDao {
 
   private User mapUser(ResultSet rs) throws SQLException {
     User user = new User();
+    user.setPhone_number(rs.getString(10));
     user.setStandard_working_hour(rs.getInt(9));
     user.setPreferred_name(rs.getString(7));
     user.setHome_address(rs.getString(8));
@@ -131,7 +135,8 @@ public int updateUser(User user) throws SQLException {
   stm.setString(6, user.getPreferred_name());
   stm.setString(7, user.getHome_address());
   stm.setInt(8, user.getStandard_working_hour());
-  stm.setLong(9,user.getId());
+  stm.setString(9, user.getPhone_number());
+  stm.setLong(10,user.getId());
   return stm.executeUpdate();
 }
 }

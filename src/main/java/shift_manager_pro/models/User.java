@@ -12,6 +12,7 @@ public class User {
     private Long job_id = null;
     private String preferred_name = null;
     private String home_address = null;
+    private String phone_number = null;
     private String password;
 
     public User(String email, String name, Role role) {
@@ -22,7 +23,13 @@ public class User {
 
     public User(){ 
     }
+    public String getPhone_number() {
+        return phone_number;
+    }
 
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
     public Integer getStandard_working_hour() {
         return standard_working_hour;
     }

@@ -20,6 +20,7 @@ public class UpdateDetailController implements Handler {
     user.setPassword(BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt()));
     user.setPreferred_name(String.valueOf(ctx.formParam("preferred_name")));
     user.setHome_address(String.valueOf(ctx.formParam("home_address")));
+    user.setPhone_number(String.valueOf(ctx.formParam("phone_number")));
     UserDao.INSTANCE.updateUser(user);
     ctx.redirect("/");
   }
