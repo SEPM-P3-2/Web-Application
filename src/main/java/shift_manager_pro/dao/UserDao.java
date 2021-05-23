@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import shift_manager_pro.models.Role;
+import shift_manager_pro.models.Shift;
 import shift_manager_pro.models.User;
 
 public class UserDao {
@@ -19,6 +20,7 @@ public class UserDao {
     "INSERT INTO users(email, name, job_id, password, role) VALUES(?,?,?,?,?)";
   private static final String UPDATE =
     "UPDATE shifts SET email = ?, name = ?, job_id = ?, password = ?, role = ? WHERE id = ?";
+  private static String DELETE = "DELETE FROM users WHERE id=?";
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
@@ -105,6 +107,7 @@ public class UserDao {
     user.setName(rs.getString(3));
     user.setEmail(rs.getString(2));
     user.setId(rs.getLong(1));
+
     return user;
   }
 
@@ -122,4 +125,10 @@ public int updateUser(User user) throws SQLException {
   stm.setString(4, user.getPassword());
   stm.setString(5, String.valueOf(user.getRole()));
   return stm.executeUpdate();
-}}
+}
+  public int delete(User user) throws SQLException {
+    Connection connection = DBUtils.getConnection();
+    PreparedStatement stm = connection.prepareStatement(DELETE);
+    stm.setLong(1, user.getId());
+    return stm.executeUpdate();
+  }}

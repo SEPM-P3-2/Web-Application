@@ -10,7 +10,6 @@ import shift_manager_pro.dao.ShiftDao;
 import shift_manager_pro.dao.UserDao;
 import shift_manager_pro.models.Shift;
 import shift_manager_pro.models.User;
-import shift_manager_pro.utils.EmailSender;
 
 public class ShiftUpdateController implements Handler {
 
@@ -25,7 +24,7 @@ public class ShiftUpdateController implements Handler {
       shift.setUser_id(Long.valueOf(ctx.formParam("user_id")));
       shift.setStatus("PENDING");
       User user = UserDao.INSTANCE.get(Long.valueOf(ctx.formParam("user_id")));
-      EmailSender.sendEmail(user, shift);
+
 
     }
     shift.setLocation_id(Long.valueOf(ctx.formParam("location_id")));
