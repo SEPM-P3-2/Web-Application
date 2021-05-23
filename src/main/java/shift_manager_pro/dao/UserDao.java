@@ -24,6 +24,7 @@ public class UserDao {
     "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address, standard_working_hour, phone_number) VALUES(?,?,?,?,?,?,?,?,?)";
   private static final String UPDATE =
     "UPDATE users SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ?, standard_working_hour = ?, phone_number = ? WHERE id = ?";
+  private static String DELETE = "DELETE FROM users WHERE id=?";
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
@@ -154,4 +155,10 @@ public int updateUser(User user) throws SQLException {
   stm.setLong(10,user.getId());
   return stm.executeUpdate();
 }
+  public int delete(User user) throws SQLException {
+    Connection connection = DBUtils.getConnection();
+    PreparedStatement stm = connection.prepareStatement(DELETE);
+    stm.setLong(1, user.getId());
+    return stm.executeUpdate();
+  }
 }
