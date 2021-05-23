@@ -18,6 +18,7 @@ import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
 import shift_manager_pro.controllers.user.UpdateDetailController;
 
+import shift_manager_pro.controllers.user.UsersListController;
 import shift_manager_pro.models.Role;
 import shift_manager_pro.utils.Views;
 
@@ -189,9 +190,5 @@ public class App {
         ctx.redirect("/");
       }
     );
-<<<<<<< HEAD
-=======
-
->>>>>>> c4e5887e5eb0c3c8fed239a5a4dfa1719b9efcbe
   }
 }
