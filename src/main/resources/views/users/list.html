@@ -36,7 +36,7 @@
                         <td th:text= "${user.phone_number} "></td>
                         <td th:text= "${user.home_address} "></td>
                         <td th:text= "${user.role} "></td>
-                        <td><a th:href="@{/users/{user_id}/delete(shift_id=${user.id})}" class="btn btn-outline-danger">Deactivate
+                        <td><a th:href="@{/users/{user_id}/delete(user_id=${user.id})}" class="btn btn-outline-danger">Deactivate
                         </a>
                     </td>
                     </tr>

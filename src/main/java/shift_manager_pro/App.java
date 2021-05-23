@@ -60,12 +60,6 @@ public class App {
       new ShiftCreateController(),
       roles(Role.MANAGER)
     );
-      app.get(
-              "/users/:user_id/delete",
-              new DeactivateController(),
-
-              roles(Role.MANAGER)
-      );
       app.get("/users/list", new UsersListController(),roles(Role.MANAGER));
 
     app.get(
@@ -203,8 +197,6 @@ public class App {
         ctx.redirect("/");
       }
     );
-
-      app.get("/users/list", new UsersListController(),roles(Role.MANAGER));
 
   }
 }
