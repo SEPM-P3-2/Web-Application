@@ -27,7 +27,7 @@ public class ShiftUpdateController implements Handler {
       shift.setUser_id(Long.valueOf(ctx.formParam("user_id")));
       shift.setStatus("PENDING");
       User user = UserDao.INSTANCE.get(Long.valueOf(ctx.formParam("user_id")));
-      EmailSender.sendEmail(user, shift);
+      EmailSender.newShiftEmailSender(user, shift);
 
     }
     shift.setLocation_id(Long.valueOf(ctx.formParam("location_id")));

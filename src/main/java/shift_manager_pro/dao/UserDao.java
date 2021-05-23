@@ -15,6 +15,9 @@ public class UserDao {
   private static final String SELECT_BY_EMAIL =
     "SELECT * FROM users WHERE email = ?";
   private static final String SELECT_BY_ID = "SELECT * FROM users WHERE id = ?";
+
+  private static final String SELECT_BY_ROLE = "SELECT * FROM users WHERE role = ?";
+
   private static final String SELECT_ALL = "SELECT * FROM users";
 
   private static final String INSERT =
@@ -76,6 +79,18 @@ public class UserDao {
     Connection connection = DBUtils.getConnection();
     Statement stm = connection.createStatement();
     ResultSet rs = stm.executeQuery(SELECT_ALL);
+    List<User> users = new ArrayList<>();
+    while (rs.next()) {
+      users.add(mapUser(rs));
+    }
+    return users;
+  }
+
+  public List<User> getManagers() throws SQLException {
+    Connection connection = DBUtils.getConnection();
+    PreparedStatement stm = connection.prepareStatement(SELECT_BY_ROLE);
+    stm.setString(1, "MANAGER");
+    ResultSet rs = stm.executeQuery();
     List<User> users = new ArrayList<>();
     while (rs.next()) {
       users.add(mapUser(rs));

@@ -34,7 +34,7 @@ public class ShiftCreateController implements Handler {
       shift.setStatus("PENDING");
       shift = ShiftDao.INSTANCE.create(shift);
       User user = UserDao.INSTANCE.get(Long.valueOf(ctx.formParam("user_id")));
-      EmailSender.sendEmail(user, shift);
+      EmailSender.newShiftEmailSender(user, shift);
     }
 
     ctx.redirect("/view_all_shifts");
