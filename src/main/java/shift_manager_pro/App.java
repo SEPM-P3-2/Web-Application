@@ -16,8 +16,12 @@ import shift_manager_pro.controllers.HomeController;
 import shift_manager_pro.controllers.availability.AvailabilityCreateController;
 import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
+<<<<<<< HEAD
 import shift_manager_pro.controllers.user.UpdatePasswordController;
 import shift_manager_pro.controllers.user.UsersListController;
+=======
+import shift_manager_pro.controllers.user.UpdateDetailController;
+>>>>>>> origin/Minh
 import shift_manager_pro.models.Role;
 import shift_manager_pro.utils.Views;
 
@@ -154,16 +158,16 @@ public class App {
     );
     // change password (only registered user)
     app.get(
-      "/edit_password",
+      "/update_detail",
       ctx -> {
-        ctx.render(Views.templatePath("auth/reset_password.html"), Views.baseModel(ctx));
+        ctx.render(Views.templatePath("auth/update_detail.html"), Views.baseModel(ctx));
       },
       roles(Role.MANAGER,Role.EMPLOYEE)
     );
 
     app.post(
-      "/edit_password",
-      new UpdatePasswordController());
+      "/update_detail",
+      new UpdateDetailController());
 
     app.get(
       "/register",

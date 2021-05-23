@@ -9,8 +9,25 @@ public class User {
     private String name = null;
     private Role role = null;
     private Long job_id = null;
+    private String preferred_name = null;
+    private String home_address = null;
     private String password;
 
+    public String getPreferred_name() {
+        return preferred_name;
+    }
+
+    public void setPreferred_name(String preferred_name) {
+        this.preferred_name = preferred_name;
+    }
+
+    public String getHome_address() {
+        return home_address;
+    }
+
+    public void setHome_address(String home_address) {
+        this.home_address = home_address;
+    }
     public User(){
 
     }
@@ -67,14 +84,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
-                ", role=" + role +
+                ", job_id='" + job_id + '\'' + 
+                ", role=" + role + '\'' +
+                ", prefered_name='" + preferred_name + '\'' +
+                ", home_address='" + home_address + 
                 '}';
     }
 }
