@@ -62,7 +62,8 @@
                                     </span>
                                 </td>
                                 <td th:if="${user_logged_in}">
-                                    <button type="button" th:href="@{/shifts/{shift_id}/cancel(shift_id=${shift.id})}"
+                                    <button type="button"
+                                    th:href="@{/allocate/{user_id}/{shift_id}/cancel(shift_id=${shift.id}, user_id=${user.id})}"
                                         class="btn btn-warning">
                                         Cancel </button>
                                 </td>
