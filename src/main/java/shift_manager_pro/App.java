@@ -74,12 +74,6 @@ public class App {
       new ShiftDeleteController(),
       roles(Role.MANAGER)
     );
-    // View shifts (only for registered users)
-    app.get(
-      "/view_my_shifts",
-      new ViewShiftsController(),
-      roles(Role.EMPLOYEE, Role.MANAGER)
-    );
 
     app.get(
       "/view_availabilities",
