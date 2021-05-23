@@ -8,6 +8,7 @@ import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;
 import shift_manager_pro.utils.EmailSender;
 import shift_manager_pro.utils.Views;
+import java.time.temporal.*;
 
 public class ShiftCreateController implements Handler {
 
@@ -15,12 +16,14 @@ public class ShiftCreateController implements Handler {
 
   @Override
   public void handle(@NotNull Context ctx) throws Exception {
+    double duration = Math.round((Double.valueOf((LocalDateTime.parse(ctx.formParam("startTime")).until(LocalDateTime.parse(ctx.formParam("endTime")),ChronoUnit.MINUTES))-ctx.formParam("breakTime", Double.class).get())/60) * 100.0) / 100.0;
     Shift shift = new Shift(
       ctx.formParam("location_id", Long.class).get(),
       ctx.formParam("user_id", Long.class).get(),
       LocalDateTime.parse(ctx.formParam("startTime")),
       LocalDateTime.parse(ctx.formParam("endTime")),
       ctx.formParam("breakTime", Integer.class).get(),
+      duration,
       ctx.formParam("info"),
       ctx.formParam("status")
     );

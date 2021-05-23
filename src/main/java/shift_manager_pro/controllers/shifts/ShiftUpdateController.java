@@ -1,6 +1,7 @@
 package shift_manager_pro.controllers.shifts;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +16,7 @@ import shift_manager_pro.utils.EmailSender;
 public class ShiftUpdateController implements Handler {
 
   public void handle(@NotNull Context ctx) throws Exception {
+    double duration = Math.round((Double.valueOf((LocalDateTime.parse(ctx.formParam("startTime")).until(LocalDateTime.parse(ctx.formParam("endTime")),ChronoUnit.MINUTES))-ctx.formParam("breakTime", Double.class).get())/60) * 100.0) / 100.0;
     Shift shift = ShiftDao.INSTANCE.getById(
       ctx.pathParam("shift_id", Long.class).get()
     );
@@ -32,6 +34,7 @@ public class ShiftUpdateController implements Handler {
     shift.setStartTime(LocalDateTime.parse(ctx.formParam("startTime")));
     shift.setEndTime(LocalDateTime.parse(ctx.formParam("endTime")));
     shift.setBreakTime(Integer.parseInt(ctx.formParam("breakTime")));
+    shift.setDuration(duration);
     shift.setInfo(ctx.formParam("info"));
     ShiftDao.INSTANCE.updateShift(shift);
     ctx.redirect("/view_all_shifts");
