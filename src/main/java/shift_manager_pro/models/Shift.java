@@ -10,6 +10,7 @@ public class Shift {
     private LocalDateTime endTime = null;
     private int breakTime = 0;
     private String info = null;
+    private double duration = 0;
 
     // Status can only be 'ACCEPTED', 'REJECTED', 'PENDING' or 'UNALLOCATED'
     private String status = "";
@@ -20,7 +21,7 @@ public class Shift {
     }
 
 
-    public Shift(Long location_id, Long user_id, LocalDateTime startTime, LocalDateTime endTime, int breakTime,
+    public Shift(Long location_id, Long user_id, LocalDateTime startTime, LocalDateTime endTime, int breakTime, double duration,
             String info, String status) {
         this.location_id = location_id;
         this.user_id = user_id;
@@ -28,10 +29,9 @@ public class Shift {
         this.endTime = endTime;
         this.breakTime = breakTime;
         this.info = info;
+        this.duration = duration;
         this.status = status;
     }
-
-
 
     public String getStatus() {
         return status;
@@ -89,6 +89,15 @@ public class Shift {
         this.endTime = endTime;
     }
 
+    public double getDuration() {
+        return duration;
+    }
+
+
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+
     public String getInfo() {
         return info;
     }
@@ -101,6 +110,6 @@ public class Shift {
     public String toString() {
         return "Shift [info=" + info + ", breakTime=" + breakTime + ", user_id=" + user_id + ", endTime="
                 + endTime + ", id=" + id + ", location_id=" + location_id + ", startTime="
-                + startTime + "]";
+                + startTime + ", duration=" + duration + "]";
     }
 }

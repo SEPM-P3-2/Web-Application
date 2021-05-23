@@ -18,6 +18,8 @@ public class EmailSender {
     Content content = new Content(
       "text/plain",
       "New Shift for " +
+      user.getPreferred_name() +
+      " :" +
       user.getName() +
       " " +
       "\nLocation: " +

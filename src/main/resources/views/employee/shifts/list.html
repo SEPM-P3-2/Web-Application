@@ -20,7 +20,7 @@
         <div class="container-fluid">
             <div class="header">
                 <h1 class="header-title">
-                    Shifts for <span th:text="${user.name}"></span>
+                    Shifts for <span th:text="${user.preferred_name}"></span>
                     <br>
             </div>
             <div class="container">
@@ -32,6 +32,7 @@
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Break Time</th>
+                        <th>Duration</th>
                         <th>Info</th>
                         <th>Status</th>
                         <tr th:each="shift : ${shifts}">
@@ -39,7 +40,8 @@
                                 <td th:text="${locations[shift.location_id-1].name}"></td>
                                 <td th:text="${shift.startTime}"></td>
                                 <td th:text="${shift.endTime}"></td>
-                                <td><span th:text="${shift.breakTime}"></span> hours</td>
+                                <td><span th:text="${shift.breakTime}"></span> minutes</td>
+                                <td><span th:text="${shift.duration}"></span> hours</td>
                                 <td th:text="${shift.info}"></td>
                                 <td>
                                     <span th:if="${shift.status=='PENDING'}">
