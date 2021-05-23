@@ -20,13 +20,16 @@
             <div class="header">
                 <h1 class="header-title">
                     All Shifts
-                    <a th:if="${role == 'MANAGER'}" style=" float: center;" class="btn btn-success" href="/shifts/new">Create Shift</a>
+                    <a th:if="${role == 'MANAGER'}" style=" float: center;" class="btn btn-success"
+                        href="/shifts/new">Create Shift</a>
                 </h1> <br>
             </div>
             <div>
                 <div class="shifts-list">
                     <table class="table">
                         <th>Employee</th>
+                        <th>Maximum Working Hour</th>
+                        <th>Current Working Hour</th>
                         <th>Location</th>
                         <th>Start Time</th>
                         <th>End Time</th>
@@ -54,6 +57,10 @@
                                 <span th:unless="${shift.user_id==0} "><span
                                         th:text="${users[shift.user_id-1].preferred_name} "></span></span>
                             </td>
+                            <td><span th:unless="${shift.user_id==0} "><span
+                                        th:text="${users[shift.user_id-1].standard_working_hour} "></span> hours/week</span></td>
+                            <td><span th:unless="${shift.user_id==0} "><span
+                                th:text="${users[shift.user_id-1].current_working_hour} "></span> hours/week</span></td>
                             <td th:text="${locations[shift.location_id-1].name} "></td>
                             <td><input th:value="${shift.startTime} " type="datetime-local " disabled></td>
                             <td><input th:value="${shift.endTime} " type="datetime-local " disabled></td>
@@ -64,11 +71,14 @@
                             <td th:if="${user_logged_in}">
                                 <form>
                                     <div class="dropdown">
-                                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-warning dropdown-toggle"
+                                            data-toggle="dropdown">
                                             Action </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}">Edit</a>
-                                            <a class="dropdown-item" th:href="@{/shifts/{shift_id}/delete(shift_id=${shift.id})}">Delete</a>
+                                            <a class="dropdown-item"
+                                                th:href="@{/shifts/{shift_id}/edit(shift_id=${shift.id})}">Edit</a>
+                                            <a class="dropdown-item"
+                                                th:href="@{/shifts/{shift_id}/delete(shift_id=${shift.id})}">Delete</a>
                                         </div>
                                     </div>
                                 </form>
