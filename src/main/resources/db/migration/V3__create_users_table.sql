@@ -7,5 +7,6 @@ CREATE TABLE users(
     role VARCHAR(100) not null,
     preferred_name VARCHAR(255) not null,
     home_address VARCHAR(255) not null,
+    standard_working_hour INT NOT NULL,
     CONSTRAINT fk_job_id FOREIGN KEY (job_id) REFERENCES jobs(id)
  );

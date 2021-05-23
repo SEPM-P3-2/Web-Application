@@ -8,7 +8,7 @@ public class User {
     private String email = null;
     private String name = null;
     private Role role = null;
-    private EmploymentType employmentType = null;
+    private Integer standard_working_hour = 0;
     private Long job_id = null;
     private String preferred_name = null;
     private String home_address = null;
@@ -23,13 +23,14 @@ public class User {
     public User(){ 
     }
 
-    public EmploymentType getEmploymentType() {
-        return employmentType;
+    public Integer getStandard_working_hour() {
+        return standard_working_hour;
     }
 
-    public void setEmploymentType(EmploymentType employmentType) {
-        this.employmentType = employmentType;
+    public void setStandard_working_hour(Integer standard_working_hour) {
+        this.standard_working_hour = standard_working_hour;
     }
+
     public String getPreferred_name() {
         return preferred_name;
     }
@@ -104,7 +105,7 @@ public class User {
                 ", role=" + role + '\'' +
                 ", prefered_name='" + preferred_name + '\'' +
                 ", home_address='" + home_address + '\'' +
-                ", employment_type='" + employmentType +
+                ", standard_working_hour='" + standard_working_hour +
                 '}';
     }
 }
