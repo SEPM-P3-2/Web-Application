@@ -6,7 +6,6 @@ import java.util.List;
 
 
 import shift_manager_pro.models.Role;
-import shift_manager_pro.models.Shift;
 import shift_manager_pro.models.User;
 
 public class UserDao {
@@ -24,9 +23,10 @@ public class UserDao {
   private static final String INSERT =
     "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address, standard_working_hour, phone_number, current_working_hour) VALUES(?,?,?,?,?,?,?,?,?,?)";
   private static final String UPDATE =
-
     "UPDATE users SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ?, standard_working_hour = ?, phone_number = ?, current_working_hour =? WHERE id = ?";
   private static String DELETE = "DELETE FROM users WHERE id=?";
+  private static final String UPDATE_WORKING_HOUR =
+    "UPDATE users SET current_working_hour = ? WHERE id=?";
 
     
 
@@ -165,7 +165,13 @@ public int updateUser(User user) throws SQLException {
   stm.setLong(11,user.getId());
   return stm.executeUpdate();
 }
-
+public int updateWorkingHour(User user) throws SQLException{
+  Connection connection = DBUtils.getConnection();
+  PreparedStatement stm = connection.prepareStatement(UPDATE_WORKING_HOUR);
+  stm.setDouble(1, user.getCurrent_working_hour());
+  stm.setLong(2,user.getId());
+  return stm.executeUpdate();
+}
   public int delete(User user) throws SQLException {
     Connection connection = DBUtils.getConnection();
     PreparedStatement stm = connection.prepareStatement(DELETE);

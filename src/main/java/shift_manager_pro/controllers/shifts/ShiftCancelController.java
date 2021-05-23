@@ -18,6 +18,9 @@ public class ShiftCancelController implements Handler {
       ctx.pathParam("shift_id", Long.class).get()
     );
     shift.setStatus("CANCELED");
+    User user = UserDao.INSTANCE.get(ctx.pathParam("user_id", Long.class).get());
+    user.setCurrent_working_hour(user.getCurrent_working_hour()-shift.getDuration());
+    UserDao.INSTANCE.updateWorkingHour(user);
     ShiftDao.INSTANCE.updateShift(shift);
     EmailSender.cancelShiftEmailSender(UserDao.INSTANCE.getManagers(), shift);
     if (

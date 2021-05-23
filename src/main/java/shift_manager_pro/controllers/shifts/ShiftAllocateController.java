@@ -17,7 +17,6 @@ public class ShiftAllocateController implements Handler {
     Shift shift = ShiftDao.INSTANCE.getById(
       ctx.pathParam("shift_id", Long.class).get()
     );
-    user.setCurrent_working_hour(user.getCurrent_working_hour()+shift.getDuration());
     shift.setUser_id(user.getId());
     shift.setStatus("PENDING");
     EmailSender.newShiftEmailSender(user, shift);
