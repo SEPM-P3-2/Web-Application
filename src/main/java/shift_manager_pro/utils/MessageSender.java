@@ -1,20 +1,25 @@
 package shift_manager_pro.utils;
 
-import ClickSend.*;
-import ClickSend.Api.AccountApi;
-import ClickSend.Api.SmsApi;
-import ClickSend.Model.*;
-import ClickSend.auth.*;
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.sql.SQLException;
+import java.util.List;
+
+import ClickSend.ApiClient;
+import ClickSend.ApiException;
+import ClickSend.Configuration;
+import ClickSend.Api.SmsApi;
+import ClickSend.Model.SmsMessage;
+import ClickSend.Model.SmsMessageCollection;
+import ClickSend.auth.HttpBasicAuth;
+import shift_manager_pro.dao.LocationDao;
+import shift_manager_pro.dao.UserDao;
 import shift_manager_pro.models.Shift;
 import shift_manager_pro.models.User;
 
 public class MessageSender {
 
   public static void cancelShiftMessageSender(List<User> managers, Shift shift)
-    throws IOException {
+    throws IOException, SQLException {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
 
     // Configure HTTP basic authorization: BasicAuth
@@ -26,17 +31,26 @@ public class MessageSender {
 
     SmsApi apiInstance = new SmsApi();
     SmsMessageCollection smsMessages = new SmsMessageCollection();
-    SmsMessage smsMessage = new SmsMessage(); // SmsMessageCollection | SmsMessageCollection model
-    SmsMessage smsMessage2 = new SmsMessage();
-    smsMessage.from("SMP");
-    smsMessage.body("Shift Cancelation for ...");
-    smsMessage.to("+61422969888");
-    smsMessages.addMessagesItem(smsMessage);
-
-    smsMessage2.from("SMP");
-    smsMessage2.body("Shift Cancelation for ...");
-    smsMessage2.to("+61455316277");
-    smsMessages.addMessagesItem(smsMessage);
+    for (User manager : managers) {
+      SmsMessage smsMessage = new SmsMessage();
+      smsMessage.from("SMP");
+      smsMessage.body(
+        "New Shift Cancelation" +
+        "\nName: " +
+        UserDao.INSTANCE.get(shift.getUser_id()).getName() +
+        "\nLocation: " +
+        LocationDao.INSTANCE.get(shift.getLocation_id()).getName() +
+        "\nStart Time: " +
+        shift.getStartTime() +
+        "\nEnd Time: " +
+        shift.getEndTime() +
+        "\nBreak: " +
+        shift.getBreakTime() +
+        " minutes"
+      );
+      smsMessage.to(manager.getPhone_number());
+      smsMessages.addMessagesItem(smsMessage);
+    }
 
     try {
       String result = apiInstance.smsSendPost(smsMessages);
