@@ -28,6 +28,7 @@ public class App {
           config.registerPlugin(new RouteOverviewPlugin("/help/routes"));
           config.addStaticFiles("public/");
           config.accessManager(new AccessManager());
+          
         }
       )
       .start(7000);
@@ -49,17 +50,15 @@ public class App {
     // View shifts (only for registered users)
     app.get(
       "/view_shifts",
-      new ViewShiftsController(),
-      roles(Role.EMPLOYEE, Role.MANAGER)
+      new ViewShiftsController()
     );
     // View all shifts (only for managers)
-    app.get("/view_all_shifts", new ViewAllShiftsController(), roles(Role.MANAGER)); // only registered users may view shifts
+    app.get("/view_all_shifts", new ViewAllShiftsController()); // only registered users may view shifts
 
     // Allocate shifts
     app.get(
       "/allocate/:user_id/:shift_id",
-      new ShiftAllocateController(),
-      roles(Role.MANAGER)
+      new ShiftAllocateController()
     );
 
     //Auth
@@ -76,8 +75,7 @@ public class App {
         Map<String, Object> model = Views.baseModel(ctx);
         model.put("user", AccessManager.getSessionCurrentUser(ctx));
         ctx.render(Views.templatePath("auth/register.html"), model);
-      },
-      roles(Role.MANAGER)
+      }
     );
 
     app.post("/register", new RegisterController());
