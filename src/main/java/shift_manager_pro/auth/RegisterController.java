@@ -5,6 +5,7 @@ import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 import shift_manager_pro.dao.UserDao;
+import shift_manager_pro.models.EmploymentType;
 import shift_manager_pro.models.Role;
 import shift_manager_pro.models.User;
 
@@ -21,6 +22,7 @@ public class RegisterController implements Handler {
     user.setPreferred_name(String.valueOf(ctx.formParam("preferred_name")));
     user.setHome_address(String.valueOf(ctx.formParam("home_address")));
     user.setPassword(BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt()));
+    user.setEmploymentType(EmploymentType.valueOf(ctx.formParam("employment_type")));
     user = UserDao.INSTANCE.create(user);
     ctx.redirect("/");
   }
