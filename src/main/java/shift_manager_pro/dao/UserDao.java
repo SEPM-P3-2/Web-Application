@@ -18,9 +18,9 @@ public class UserDao {
   private static final String SELECT_ALL = "SELECT * FROM users";
 
   private static final String INSERT =
-    "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address, employment_type) VALUES(?,?,?,?,?,?,?,?)";
+    "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address) VALUES(?,?,?,?,?,?,?)";
   private static final String UPDATE =
-    "UPDATE shifts SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ?, employmenet_type = ? WHERE id = ?";
+    "UPDATE users SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ? WHERE id = ?";
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
@@ -50,7 +50,6 @@ public class UserDao {
       user.setRole(Role.valueOf(rs.getString(6)));
       user.setPreferred_name(rs.getString(7));
       user.setHome_address(rs.getString(8));
-      user.setEmploymentType(EmploymentType.valueOf(rs.getString(9)));
       user.setId(rs.getLong(1));
       return user;
     }
@@ -95,7 +94,6 @@ public class UserDao {
     stm.setString(5, String.valueOf(user.getRole()));
     stm.setString(6, user.getPreferred_name());
     stm.setString(7, user.getHome_address());
-    stm.setString(8, String.valueOf(user.getEmploymentType()));
     stm.executeUpdate();
     ResultSet generatedKeys = stm.getGeneratedKeys();
     if (generatedKeys.next()) {
@@ -110,7 +108,6 @@ public class UserDao {
 
   private User mapUser(ResultSet rs) throws SQLException {
     User user = new User();
-    user.setEmploymentType(EmploymentType.valueOf(rs.getString(9)));
     user.setPreferred_name(rs.getString(7));
     user.setHome_address(rs.getString(8));
     user.setRole(Role.valueOf(rs.getString(6)));
@@ -124,19 +121,14 @@ public class UserDao {
 public int updateUser(User user) throws SQLException {
   Connection connection = DBUtils.getConnection();
   PreparedStatement stm = connection.prepareStatement(UPDATE);
-  if (user.getId() != null) {
-    stm.setLong(1, user.getId());
-  } else {
-    stm.setString(1, null);
-  }
-  stm.setString(2, user.getEmail());
-  stm.setString(3, user.getName());
-  stm.setLong(4, user.getJob_id());
-  stm.setString(5, user.getPassword());
-  stm.setString(6, String.valueOf(user.getRole()));
-  stm.setString(7, user.getPreferred_name());
-  stm.setString(8, user.getHome_address());
-  stm.setString(9, String.valueOf(user.getEmploymentType()));
+  stm.setString(1, user.getEmail());
+  stm.setString(2, user.getName());
+  stm.setLong(3, user.getJob_id());
+  stm.setString(4, user.getPassword());
+  stm.setString(5, String.valueOf(user.getRole()));
+  stm.setString(6, user.getPreferred_name());
+  stm.setString(7, user.getHome_address());
+  stm.setLong(8,user.getId());
   return stm.executeUpdate();
 }
 }

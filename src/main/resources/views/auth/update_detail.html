@@ -24,6 +24,7 @@
             <div class="container">
                 <br>
                 <form action="/update_detail" method="post">
+                    <input th:value="${user.id}" type="hidden" name="id">
                     <div class="form-group">
                         <label for="name">Full Name</label>
                         <input class="form-control" id="name" name="name" required>

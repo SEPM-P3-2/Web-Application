@@ -24,6 +24,8 @@ public class ShiftDao {
   private static final String UPDATE =
     "UPDATE shifts SET location_id = ?, user_id = ?, startTime = ?, endTime = ?, breakTime = ?, duration = ?, info = ?, status = ? WHERE id = ?";
   private static String DELETE = "DELETE FROM shifts WHERE id=?";
+  private static final String SELECT_SUM_DURATION_BY_USER_ID = 
+    "SELECT SUM(duration) FROM shifts WHERE user_id = ?";
 
   public static ShiftDao INSTANCE = new ShiftDao();
 
@@ -173,4 +175,16 @@ public class ShiftDao {
     stm.setLong(9, shift.getId());
     return stm.executeUpdate();
   }
+public Integer sumDurationByUserID(Long user_id) throws SQLException{
+  Connection connection = DBUtils.getConnection();
+  PreparedStatement stm = connection.prepareStatement(SELECT_SUM_DURATION_BY_USER_ID);
+  stm.setLong(1, user_id);
+  ResultSet rs = stm.executeQuery();
+  int duration = 0;
+  if (rs.next()){
+      duration = rs.getInt(1);
+  }
+  return duration;
+  }
 }
+

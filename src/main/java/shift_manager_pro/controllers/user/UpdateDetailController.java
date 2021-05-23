@@ -12,8 +12,9 @@ public class UpdateDetailController implements Handler {
 
   public void handle(@NotNull Context ctx) throws Exception {
     User user = UserDao.INSTANCE.get(
-      ctx.pathParam("id", Long.class).get()
+      ctx.formParam("id", Long.class).get()
     );
+    
     user.setName(String.valueOf(ctx.formParam("name")));
     user.setJob_id(Long.valueOf(ctx.formParam("job_id")));
     user.setPassword(BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt()));
