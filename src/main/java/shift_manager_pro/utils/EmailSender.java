@@ -63,9 +63,9 @@ public class EmailSender {
       user.getPreferred_name() +
       " " +
       "exceed his/her standard working hour " +
-      "Current Working Hour: " +
+      "\nCurrent Working Hour: " +
       user.getCurrent_working_hour() +
-      "Standard Working Hour:  " +
+      "\nStandard Working Hour:  " +
       user.getStandard_working_hour()
     );
 
