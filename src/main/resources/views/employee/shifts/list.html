@@ -32,6 +32,7 @@
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Break Time</th>
+                        <th>Duration</th>
                         <th>Info</th>
                         <th>Status</th>
                         <tr th:each="shift : ${shifts}">
@@ -39,7 +40,8 @@
                                 <td th:text="${locations[shift.location_id-1].name}"></td>
                                 <td th:text="${shift.startTime}"></td>
                                 <td th:text="${shift.endTime}"></td>
-                                <td><span th:text="${shift.breakTime}"></span> hours</td>
+                                <td><span th:text="${shift.breakTime}"></span> minutes</td>
+                                <td><span th:text="${shift.duration}"></span> hours</td>
                                 <td th:text="${shift.info}"></td>
                                 <td>
                                     <span th:if="${shift.status=='PENDING'}">
@@ -62,9 +64,10 @@
                                     </span>
                                 </td>
                                 <td th:if="${user_logged_in}">
-                                    <button type="button" th:href="@{/shifts/{shift_id}/cancel(shift_id=${shift.id})}"
+                                    <a role="button"
+                                    th:href="@{/allocate/{user_id}/{shift_id}/cancel(shift_id=${shift.id}, user_id=${user.id})}"
                                         class="btn btn-warning">
-                                        Cancel </button>
+                                        Cancel </a>
                                 </td>
 
                         </tr>

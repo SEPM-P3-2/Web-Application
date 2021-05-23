@@ -156,7 +156,7 @@ public class App {
       },
       roles(Role.MANAGER, Role.EMPLOYEE)
     );
-    // change password (only registered user)
+    // update detail (only registered user)
     app.get(
       "/update_detail",
       ctx -> {

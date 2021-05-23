@@ -21,6 +21,8 @@ public class RegisterController implements Handler {
     user.setPreferred_name(String.valueOf(ctx.formParam("preferred_name")));
     user.setHome_address(String.valueOf(ctx.formParam("home_address")));
     user.setPassword(BCrypt.hashpw(ctx.formParam("password"), BCrypt.gensalt()));
+    user.setStandard_working_hour(Integer.valueOf(ctx.formParam("standard_working_hour")));
+    user.setPhone_number(String.valueOf(ctx.formParam("phone_number")));
     user = UserDao.INSTANCE.create(user);
     ctx.redirect("/");
   }

@@ -18,6 +18,9 @@ public class ShiftAllocateController implements Handler {
     );
     shift.setUser_id(user.getId());
     shift.setStatus("PENDING");
+
+    EmailSender.newShiftEmailSender(user, shift);
+
     ShiftDao.INSTANCE.updateShift(shift);
     ctx.redirect("/view_all_shifts");
   }
