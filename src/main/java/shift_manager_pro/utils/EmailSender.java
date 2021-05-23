@@ -17,7 +17,7 @@ public class EmailSender {
       "text/plain",
       "New Shift for " +
       user.getName() +
-      " :" +
+      " " +
       "\nLocation: " +
       LocationDao.INSTANCE.get(shift.getLocation_id()).getName() +
       "\nStart Time: " +
