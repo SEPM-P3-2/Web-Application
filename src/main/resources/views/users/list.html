@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Common head content is included from common.html  -->
+    <th:block th:include="/views/fragments/common.html :: commonhead"></th:block>
+
+    <!-- Include custom head for this head after this line -->
+    <title>Users</title>
+
+    <!-- You can create a css with styles only for this page -->
+</head>
+
+<body>
+
+<!-- Nav bar is located in common.html -->
+<header th:replace="/views/fragments/common.html::header"></header>
+<main role="main" class="content">
+    <div class="container-fluid">
+        <div class="header">
+            <h1 class="header-title">
+                All users
+
+            </h1> <br>
+        </div>
+        <div>
+            <div class="users-list">
+                <table class="table">
+                    <th>Name</th>
+                    <th>Email</th>
+                    <tr th:each="user : ${users}">
+                        <td th:text= "${user.name} " ></td>
+                        <td th:text= "${user.email} "></td>
+                        <td th:href="@{/users/{user_id}/delete(shift_id=${user.id})}" class="btn btn-outline-danger">Deactivate
+
+                    </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</main>
+<!-- End THIS page content -->
+
+
+<!-- Footer is located in common.html -->
+<footer class="footer " th:replace="/views/fragments/common.html :: footer "></footer>
+
+<!-- Bootstrap Scripts  -->
+<th:block th:include="/views/fragments/common.html :: scripts "></th:block>
+</body>
+
+</html>

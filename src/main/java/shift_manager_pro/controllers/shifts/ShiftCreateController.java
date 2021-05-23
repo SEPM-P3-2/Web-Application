@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import org.jetbrains.annotations.NotNull;
 import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;
-import shift_manager_pro.utils.EmailSender;
 import shift_manager_pro.utils.Views;
 import java.time.temporal.*;
 
@@ -34,7 +33,10 @@ public class ShiftCreateController implements Handler {
       shift.setStatus("PENDING");
       shift = ShiftDao.INSTANCE.create(shift);
       User user = UserDao.INSTANCE.get(Long.valueOf(ctx.formParam("user_id")));
+
+
       EmailSender.newShiftEmailSender(user, shift);
+
     }
 
     ctx.redirect("/view_all_shifts");
