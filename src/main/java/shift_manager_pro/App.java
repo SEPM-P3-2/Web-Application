@@ -17,6 +17,7 @@ import shift_manager_pro.controllers.availability.ViewAllAvailabilitiesControlle
 import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
 import shift_manager_pro.controllers.user.UpdateDetailController;
+
 import shift_manager_pro.models.Role;
 import shift_manager_pro.utils.Views;
 
@@ -56,6 +57,7 @@ public class App {
       new ShiftCreateController(),
       roles(Role.MANAGER)
     );
+      app.get("/users/list", new UsersListController(),roles(Role.MANAGER));
 
     app.get(
       "/shifts/:shift_id/edit",
@@ -187,5 +189,9 @@ public class App {
         ctx.redirect("/");
       }
     );
+<<<<<<< HEAD
+=======
+
+>>>>>>> c4e5887e5eb0c3c8fed239a5a4dfa1719b9efcbe
   }
 }

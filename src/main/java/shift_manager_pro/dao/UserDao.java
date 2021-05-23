@@ -24,11 +24,11 @@ public class UserDao {
   private static final String INSERT =
     "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address, standard_working_hour, phone_number, current_working_hour) VALUES(?,?,?,?,?,?,?,?,?,?)";
   private static final String UPDATE =
-
     "UPDATE users SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ?, standard_working_hour = ?, phone_number = ?, current_working_hour =? WHERE id = ?";
   private static String DELETE = "DELETE FROM users WHERE id=?";
 
     
+
 
   public static UserDao INSTANCE = new UserDao();
 
