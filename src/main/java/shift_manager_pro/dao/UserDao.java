@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import shift_manager_pro.models.Role;
+import shift_manager_pro.models.Shift;
 import shift_manager_pro.models.User;
 
 public class UserDao {
@@ -21,10 +22,14 @@ public class UserDao {
   private static final String SELECT_ALL = "SELECT * FROM users";
 
   private static final String INSERT =
-    "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address, standard_working_hour, phone_number) VALUES(?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO users(email, name, job_id, password, role, preferred_name, home_address, standard_working_hour, phone_number, current_working_hour) VALUES(?,?,?,?,?,?,?,?,?,?)";
   private static final String UPDATE =
-    "UPDATE users SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ?, standard_working_hour = ?, phone_number = ? WHERE id = ?";
+    "UPDATE users SET email = ?, name = ?, job_id = ?, password = ?, role = ?, preferred_name = ?, home_address = ?, standard_working_hour = ?, phone_number = ?, current_working_hour =? WHERE id = ?";
   private static String DELETE = "DELETE FROM users WHERE id=?";
+
+    
+
+
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
@@ -56,6 +61,7 @@ public class UserDao {
       user.setHome_address(rs.getString(8));
       user.setStandard_working_hour(rs.getInt(9));
       user.setPhone_number(rs.getString(10));
+      user.setCurrent_working_hour(rs.getDouble(11));
       user.setId(rs.getLong(1));
       return user;
     }
@@ -114,6 +120,7 @@ public class UserDao {
     stm.setString(7, user.getHome_address());
     stm.setInt(8, user.getStandard_working_hour());
     stm.setString(9,user.getPhone_number());
+    stm.setDouble(10, user.getCurrent_working_hour());
     stm.executeUpdate();
     ResultSet generatedKeys = stm.getGeneratedKeys();
     if (generatedKeys.next()) {
@@ -128,6 +135,7 @@ public class UserDao {
 
   private User mapUser(ResultSet rs) throws SQLException {
     User user = new User();
+    user.setCurrent_working_hour(rs.getDouble(11));
     user.setPhone_number(rs.getString(10));
     user.setStandard_working_hour(rs.getInt(9));
     user.setPreferred_name(rs.getString(7));
@@ -137,6 +145,7 @@ public class UserDao {
     user.setName(rs.getString(3));
     user.setEmail(rs.getString(2));
     user.setId(rs.getLong(1));
+
     return user;
   }
 
@@ -152,13 +161,17 @@ public int updateUser(User user) throws SQLException {
   stm.setString(7, user.getHome_address());
   stm.setInt(8, user.getStandard_working_hour());
   stm.setString(9, user.getPhone_number());
-  stm.setLong(10,user.getId());
+  stm.setDouble(10, user.getCurrent_working_hour());
+  stm.setLong(11,user.getId());
   return stm.executeUpdate();
 }
+
   public int delete(User user) throws SQLException {
     Connection connection = DBUtils.getConnection();
     PreparedStatement stm = connection.prepareStatement(DELETE);
     stm.setLong(1, user.getId());
     return stm.executeUpdate();
   }
+
 }
+

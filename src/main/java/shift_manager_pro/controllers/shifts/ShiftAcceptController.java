@@ -15,8 +15,10 @@ public class ShiftAcceptController implements Handler {
       ctx.pathParam("shift_id", Long.class).get()
     );
     shift.setStatus("ACCEPTED");
+    User user = UserDao.INSTANCE.get(Long.valueOf(ctx.formParam("user_id")));
+    user.setCurrent_working_hour(user.getCurrent_working_hour()+shift.getDuration());
+    UserDao.INSTANCE.updateUser(user);
     ShiftDao.INSTANCE.updateShift(shift);
-
     ctx.redirect("/view_my_shifts");
   }
 }

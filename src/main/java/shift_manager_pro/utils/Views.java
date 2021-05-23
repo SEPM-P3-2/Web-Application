@@ -54,6 +54,7 @@ public class Views {
     Map<String, Object> model = new HashMap<>();
     //add currentUser information
     model.put("user", user);
+    model.put("user_id", user.getId());
     model.put(
       "user_logged_in",
       (user.getRole() == Role.ANONYMOUS ? false : true)
