@@ -26,6 +26,6 @@ public class AvailabilityCreateController implements Handler {
         Availability a = new Availability(null, AccessManager.getSessionCurrentUser(ctx).getId(), day, startTime, endTime);
         AvailabilityDao.INSTANCE.create(a);
 
-        ctx.redirect("/view_availabilities");
+        ctx.redirect("/view_availabilities/" + AccessManager.getSessionCurrentUser(ctx).getId());
     }
 }

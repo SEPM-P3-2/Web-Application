@@ -30,6 +30,7 @@ public class UserDao {
 
     
 
+
   public static UserDao INSTANCE = new UserDao();
 
   private UserDao() {}
