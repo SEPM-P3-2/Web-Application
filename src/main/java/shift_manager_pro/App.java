@@ -9,7 +9,6 @@ import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import java.time.LocalDateTime;
 import java.util.Map;
 import shift_manager_pro.auth.AccessManager;
-import shift_manager_pro.controllers.user.DeactivateController;
 import shift_manager_pro.auth.LoginController;
 import shift_manager_pro.auth.RegisterController;
 import shift_manager_pro.controllers.HomeController;
@@ -17,8 +16,6 @@ import shift_manager_pro.controllers.availability.AvailabilityCreateController;
 import shift_manager_pro.controllers.availability.ViewAllAvailabilitiesController;
 import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
-import shift_manager_pro.controllers.user.UsersListController;
-
 import shift_manager_pro.controllers.user.UpdateDetailController;
 
 import shift_manager_pro.models.Role;
@@ -79,12 +76,7 @@ public class App {
       new ShiftDeleteController(),
       roles(Role.MANAGER)
     );
-      app.get(
-              "/users/:user_id/delete",
-              new DeactivateController(),
 
-              roles(Role.MANAGER)
-      );
     // View shifts (only for registered users)
     app.get(
       "/view_my_shifts",
@@ -197,6 +189,9 @@ public class App {
         ctx.redirect("/");
       }
     );
+<<<<<<< HEAD
+=======
 
+>>>>>>> c4e5887e5eb0c3c8fed239a5a4dfa1719b9efcbe
   }
 }
