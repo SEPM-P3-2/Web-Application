@@ -52,6 +52,45 @@ public class EmailSender {
       throw ex;
     }
   }
+  public static void exceedStandardWorkingHour(User user, Shift shift, List<User> managers)
+    throws IOException, SQLException {
+    Email from = new Email("SMP@smp.com");
+    String subject = "Exceed Standard Working Hour";
+    Email to = new Email("");
+    Content content = new Content(
+      "text/plain",
+      "Current working hour of " +
+      user.getPreferred_name() +
+      " " +
+      "exceed his/her standard working hour " +
+      "Current Working Hour: " +
+      user.getCurrent_working_hour() +
+      "Standard Working Hour:  " +
+      user.getStandard_working_hour()
+    );
+
+    SendGrid sg = new SendGrid(
+      "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"
+    );
+    Request request = new Request();
+    to.setEmail(user.getEmail());
+    for (User manager : managers) {
+      to.setEmail(manager.getEmail());
+      Mail mail = new Mail(from, subject, to, content);
+
+      try {
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        request.setBody(mail.build());
+        Response response = sg.api(request);
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getBody());
+        System.out.println(response.getHeaders());
+      } catch (IOException ex) {
+        throw ex;
+      }
+    }
+  }
 
   public static void cancelShiftEmailSender(List<User> managers, Shift shift)
     throws IOException, SQLException {

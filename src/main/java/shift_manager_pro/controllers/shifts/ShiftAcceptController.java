@@ -5,6 +5,7 @@ import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 import shift_manager_pro.dao.*;
 import shift_manager_pro.models.*;
+import shift_manager_pro.utils.EmailSender;
 
 public class ShiftAcceptController implements Handler {
 
@@ -18,6 +19,9 @@ public class ShiftAcceptController implements Handler {
     User user = UserDao.INSTANCE.get(ctx.pathParam("user_id", Long.class).get());
     user.setCurrent_working_hour(user.getCurrent_working_hour()+shift.getDuration());
     UserDao.INSTANCE.updateWorkingHour(user);
+    if(user.getCurrent_working_hour()>user.getStandard_working_hour()){
+      EmailSender.exceedStandardWorkingHour(user, shift, UserDao.INSTANCE.getManagers());
+    }
     ShiftDao.INSTANCE.updateShift(shift);
     ctx.redirect("/view_my_shifts");
   }
