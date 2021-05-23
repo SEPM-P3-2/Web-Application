@@ -9,5 +9,6 @@ CREATE TABLE users(
     home_address VARCHAR(255) not null,
     standard_working_hour INT NOT NULL,
     phone_number VARCHAR(100) not null unique,
+    current_working_hour FLOAT NOT NULL,
     CONSTRAINT fk_job_id FOREIGN KEY (job_id) REFERENCES jobs(id)
  );

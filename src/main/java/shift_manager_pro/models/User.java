@@ -13,7 +13,7 @@ public class User {
     private String preferred_name = null;
     private String home_address = null;
     private String phone_number = null;
-    private Integer current_working_hour = 0;
+    private Double current_working_hour = 0.0;
     private String password;
 
     public User(String email, String name, Role role) {
@@ -24,11 +24,11 @@ public class User {
 
     public User(){ 
     }
-    public Integer getCurrent_working_hour() {
+    public Double getCurrent_working_hour() {
         return current_working_hour;
     }
 
-    public void setCurrent_working_hour(Integer current_working_hour) {
+    public void setCurrent_working_hour(Double current_working_hour) {
         this.current_working_hour = current_working_hour;
     }
     public String getPhone_number() {
