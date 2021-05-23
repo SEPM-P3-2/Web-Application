@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:fragment="form">
+        <input th:value="${shift.id}" type="hidden" name="id">
+        <select name="location_id" class="custom-select" required>
+            <option disabled hidden>Select Location</option>
+            <option th:each="location : ${locations}" th:text="${location.name}" th:value="${location.id}" required>
+            </option>
+            Location</option>
+        </select>
+        <select name="user_id" class="custom-select">
+            <option selected value='0'>Select Staff</option>
+            <option th:each="user : ${users}" th:text="${user.name}" th:value="${user.id}">Staff</option>
+        </select>
+        <div class="form-group">
+            <label for="startTime">Enter Start Time</label>
+            <input type="datetime-local" class="form-control" id="startTime" name="startTime"
+                th:value="${shift.startTime}" placeholder="Enter Start Time" required>
+            <label for="endTime">Enter End Time</label>
+            <input type="datetime-local" class="form-control" id="endTime" name="endTime" th:value="${shift.endTime}"
+                placeholder="Enter End Time" required>
+            <label for="breakTime">Enter Break Time</label>
+            <input type="number" class="form-control" id="breakTime" name="breakTime" th:value="${shift.breakTime}"
+                placeholder="Enter Break Time" required>
+        </div>
+        <div class="form-group">
+            <label for="info">Enter Info</label>
+            <textarea type="text" class="form-control" id="info" name="info" rows="2" th:text="${shift.info}" th:value="${shift.info}"
+                placeholder="Enter info"></textarea>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

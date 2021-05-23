@@ -13,6 +13,8 @@ import shift_manager_pro.auth.AccessManager;
 import shift_manager_pro.auth.LoginController;
 import shift_manager_pro.auth.RegisterController;
 import shift_manager_pro.controllers.HomeController;
+import shift_manager_pro.controllers.availability.AvailabilityCreateController;
+import shift_manager_pro.controllers.availability.ViewAvailabilitiesController;
 import shift_manager_pro.controllers.shifts.*;
 import shift_manager_pro.models.Role;
 import shift_manager_pro.utils.Views;
@@ -47,11 +49,55 @@ public class App {
     // Routing
     app.get(HomeController.URL, new HomeController());
 
+    app.get("/shifts/new", new ShiftNewController(), roles(Role.MANAGER));
+
+    app.post(
+      "/shifts/create",
+      new ShiftCreateController(),
+      roles(Role.MANAGER)
+    );
+
+    app.get(
+      "/shifts/:shift_id/edit",
+      new ShiftEditController(),
+      roles(Role.MANAGER)
+    );
+
+    app.post(
+      "/shifts/:shift_id/update",
+      new ShiftUpdateController(),
+      roles(Role.MANAGER)
+    );
+
+    app.get(
+      "/shifts/:shift_id/delete",
+      new ShiftDeleteController(),
+      roles(Role.MANAGER)
+    );
     // View shifts (only for registered users)
     app.get(
-      "/view_shifts",
-      new ViewShiftsController()
+      "/view_my_shifts",
+      new ViewShiftsController(),
+      roles(Role.EMPLOYEE, Role.MANAGER)
     );
+
+    app.get(
+      "/view_availabilities",
+      new ViewAvailabilitiesController(),
+      roles(Role.EMPLOYEE, Role.MANAGER)
+    );
+    app.get(
+      "/availabilities/new",
+      ctx -> {
+        ctx.render(
+          "/views/employee/availabilities/new.html",
+          Views.baseModel(ctx)
+        );
+      },
+      roles(Role.EMPLOYEE, Role.MANAGER)
+    );
+    app.post("availabilities/new", new AvailabilityCreateController());
+
     // View all shifts (only for managers)
     app.get("/view_all_shifts", new ViewAllShiftsController()); // only registered users may view shifts
 
@@ -61,6 +107,30 @@ public class App {
       new ShiftAllocateController()
     );
 
+    // Accept shifts
+    app.get(
+      "/allocate/:user_id/:shift_id/accept",
+      new ShiftAcceptController(),
+      roles(Role.MANAGER, Role.EMPLOYEE)
+    );
+
+    // Reject shifts
+    app.get(
+      "/allocate/:user_id/:shift_id/reject",
+      new ShiftRejectController(),
+      roles(Role.MANAGER, Role.EMPLOYEE)
+    );
+
+    // only registered users may view shifts
+    app.get(
+      "/shift_preferences",
+      ctx -> {
+        ctx.render(
+          "/views/employee//shifts/calendar.html",
+          Views.baseModel(ctx)
+        );
+      }
+    );
     //Auth
     app.get(
       "/login",

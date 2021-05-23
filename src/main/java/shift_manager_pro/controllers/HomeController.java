@@ -18,12 +18,11 @@ public class HomeController implements Handler {
     static final String TEMPLATE = Views.templatePath("home/index.html");
 
     @Override
-    public void handle(@NotNull Context context) throws Exception {
-        Map<String, Object> model = Views.baseModel(context);
+    public void handle(@NotNull Context ctx) throws Exception {
+        Map<String, Object> model = Views.baseModel(ctx);
         User user = UserDao.INSTANCE.getByEmail("manager@smp.com");
-        AccessManager.loginUser(context,user);
-
+        AccessManager.loginUser(ctx,user);
         model.put("date", new Date());
-        context.render(TEMPLATE, model);
+        ctx.render(TEMPLATE, model);
     }
 }

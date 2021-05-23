@@ -1,10 +1,11 @@
 package shift_manager_pro.utils;
 
 import shift_manager_pro.auth.AccessManager;
-import shift_manager_pro.models.Role;
-import shift_manager_pro.models.User;
+import shift_manager_pro.dao.*;
+import shift_manager_pro.models.*;
 import io.javalin.http.Context;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,14 +33,16 @@ public class Views {
      * Eg: model.put("user", getSessionCurrentUser(ctx));
      * @param ctx
      * @return a pre-populated model
+     * @throws SQLException
      */
-    public static Map<String, Object> baseModel(Context ctx) {
+    public static Map<String, Object> baseModel(Context ctx) throws SQLException {
         Map<String, Object> model = new HashMap<>();
         //add currentUser information
         User user = AccessManager.getSessionCurrentUser(ctx);
         model.put("user", user);
         model.put("user_logged_in", (user.getRole() == Role.ANONYMOUS ? false : true));
         model.put("role", user.getRole().toString());
+        model.put("locations", LocationDao.INSTANCE.getAll());
         return model;
     }
 }

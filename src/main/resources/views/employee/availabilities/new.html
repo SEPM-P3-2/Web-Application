@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/views/fragments/common.html :: commonhead"></th:block>
+
+    <title>Add Availability</title>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<header th:replace="/views/fragments/common.html :: header"></header>
+
+<main role="main" class="container">
+    <h1>Add Availability</h1>
+    <br>
+    <p>To add a new availability period, simply select a day, start time and end time.</p>
+
+    <form action="/availabilities/new" method="post">
+
+        <div class="form-group"></div>
+            <label for="day">Day of Week:</label>
+            <select class="form-control" name="day" id="day" required>
+                <option value="MONDAY">Monday</option>
+                <option value="TUESDAY">Tuesday</option>
+                <option value="WEDNESDAY">Wednesday</option>
+                <option value="THURSDAY">Thursday</option>
+                <option value="FRIDAY">Friday</option>
+                <option value="SATURDAY">Saturday</option>
+                <option value="SUNDAY">Sunday</option>
+            </select>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="startTime">Start Time:</label>
+            <input class="form-control" type="time" name="startTime" id="startTime" required>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="endTime">End Time:</label>
+            <input class="form-control" type="time" name="endTime" id="endTime" required>
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-success">Confirm</button>
+    </form>
+</main>
+
+</body>
+</html>
