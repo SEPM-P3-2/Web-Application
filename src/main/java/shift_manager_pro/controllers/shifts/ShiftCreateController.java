@@ -27,6 +27,7 @@ public class ShiftCreateController implements Handler {
       ctx.formParam("info"),
       ctx.formParam("status")
     );
+    
     if (shift.getUser_id() == 0) {
       shift.setStatus("UNALLOCATED");
       shift = ShiftDao.INSTANCE.createUnallocated(shift);
