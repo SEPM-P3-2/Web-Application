@@ -21,6 +21,7 @@ public class ShiftCreateController implements Handler {
       LocalDateTime.parse(ctx.formParam("startTime")),
       LocalDateTime.parse(ctx.formParam("endTime")),
       ctx.formParam("breakTime", Integer.class).get(),
+      ctx.formParam("duration", Double.class).get(),
       ctx.formParam("info"),
       ctx.formParam("status")
     );
