@@ -9,7 +9,6 @@
 4. Set the project as Maven project
 5. Click on Maven on left bar, and select Execute maven goal, insert `mvn flyway:migrate`
 6. Go to http://localhost:7000
-7. Happy Coding!
 
 ## maven
 
@@ -18,7 +17,6 @@
 3. `mvn flyway:migrate`
 4. `mvn exec:java`
 5. Go to http://localhost:7000
-6. Happy Coding!
 
 ## Project Structure
 
